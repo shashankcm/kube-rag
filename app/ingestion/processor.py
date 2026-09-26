@@ -119,22 +119,24 @@ def process_directory(directory_path: str, source_type: str):
 
 
 def run_universal_ingestion(
-    base_dir: str, explicit_source_type: str | None = None, wipe: bool = False
+    base_dir: str, explicit_source_type: str | None = None, wipe: bool = False, wipe_source: bool = False
 ):
     """
     Scan base_dir, map sub-folders to source types, and ingest all documents.
-    pass --wipe to drop and recreate the Qdrant collection before ingestion.
+    --wipe: drop and recreate entire collection before ingestion.
+    --wipe-source: delete only vectors from the source_type being ingested.
 
     Args:
         base_dir (str): The base directory to process.
         explicit_source_type (str | None): The source type to use for processing.
-        wipe (bool): Whether to wipe the Qdrant collection before ingesting.
+        wipe (bool): Whether to wipe entire Qdrant collection before ingesting.
+        wipe_source (bool): Whether to wipe only this source_type's data.
     """
 
     with logfire.span("Universal Ingestion Started", base_directory=base_dir):
         if wipe and qdrant_client.collection_exists(settings.QDRANT_COLLECTION):
             qdrant_client.delete_collection(settings.QDRANT_COLLECTION)
-            logfire.info(f"Wiped collection '{settings.QDRANT_COLLECTION}'")
+            logfire.info(f"Wiped entire collection '{settings.QDRANT_COLLECTION}'")
 
         # Recreate collection - dimension resolved at runtime after embedding model probe
         if not qdrant_client.collection_exists(settings.QDRANT_COLLECTION):
@@ -170,6 +172,23 @@ def run_universal_ingestion(
             logfire.info(
                 f"No sub-folders found - processing '{base_dir}' as {source_type}"
             )
+
+            if wipe_source and qdrant_client.collection_exists(settings.QDRANT_COLLECTION):
+                qdrant_client.delete(
+                    collection_name=settings.QDRANT_COLLECTION,
+                    points_selector=models.FilterSelector(
+                        filter=models.Filter(
+                            must=[
+                                models.FieldCondition(
+                                    key="source_type",
+                                    match=models.MatchValue(value=source_type)
+                                )
+                            ]
+                        )
+                    ),
+                )
+                logfire.info(f"Wiped source_type '{source_type}' from collection")
+
             process_directory(base_dir, source_type)
         else:
             for subdir in subdirectories:
@@ -183,12 +202,30 @@ def run_universal_ingestion(
                 logfire.info(
                     f"Sub-folder found - processing '{subdir}' as {source_type}"
                 )
+
+                if wipe_source and qdrant_client.collection_exists(settings.QDRANT_COLLECTION):
+                    qdrant_client.delete(
+                        collection_name=settings.QDRANT_COLLECTION,
+                        points_selector=models.FilterSelector(
+                            filter=models.Filter(
+                                must=[
+                                    models.FieldCondition(
+                                        key="source_type",
+                                        match=models.MatchValue(value=source_type)
+                                    )
+                                ]
+                            )
+                        ),
+                    )
+                    logfire.info(f"Wiped source_type '{source_type}' from collection")
+
                 process_directory(os.path.join(base_dir, subdir), source_type)
 
 
 if __name__ == "__main__":
     wipe_requested = "--wipe" in sys.argv
-    clean_args = [arg for arg in sys.argv if arg != "--wipe"]
+    wipe_source_requested = "--wipe-source" in sys.argv
+    clean_args = [arg for arg in sys.argv if arg not in ("--wipe", "--wipe-source")]
 
     target_dir = clean_args[1] if len(clean_args) > 1 else "DATA"
     explicit_type = clean_args[2] if len(clean_args) > 2 else None
@@ -198,6 +235,9 @@ if __name__ == "__main__":
         sys.exit(1)
 
     run_universal_ingestion(
-        target_dir, explicit_source_type=explicit_type, wipe=wipe_requested
+        target_dir,
+        explicit_source_type=explicit_type,
+        wipe=wipe_requested,
+        wipe_source=wipe_source_requested,
     )
     logfire.info("Ingestion job completed successfully")

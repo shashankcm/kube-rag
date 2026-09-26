@@ -148,10 +148,17 @@ def run_universal_ingestion(
                 ),
             )
 
+            qdrant_client.create_payload_index(
+                collection_name=settings.QDRANT_COLLECTION,
+                field_name="source_type",
+                field_schema=models.PayloadSchemaType.KEYWORD,
+            )
+
             logfire.info(
                 f"Created collection '{settings.QDRANT_COLLECTION}'"
                 f" with dimension {dim}, Cosine distance."
             )
+            logfire.info(f"Created payload index on 'source_type' field")
 
         subdirectories = [
             d for d in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, d))

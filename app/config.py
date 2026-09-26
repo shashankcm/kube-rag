@@ -7,7 +7,8 @@ load_dotenv()
 
 
 class Settings:
-    # --- GEMINI EMBEDDINGS ---
+    # --- EMBEDDINGS ---
+    EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "sentence-transformers")
     GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
     # --- VECTOR DB (QDRANT) ---

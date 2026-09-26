@@ -92,7 +92,7 @@ def process_file(file_path: str, filename: str, source_type: str) -> str | None:
                             "source_type": source_type,
                         },
                     )
-                    for vector, chunk in zip[tuple](embeddings, chunks)
+                    for vector, chunk in zip(embeddings, chunks)
                 ]
 
                 qdrant_client.upsert(

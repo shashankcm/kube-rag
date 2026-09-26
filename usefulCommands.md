@@ -2,6 +2,8 @@
 
 ## Here are the ingestion commands for the 3 useful cases.
 
+### Note: if you want to use Gemini embeddings, set `EMBEDDING_MODEL=gemini` in your .env file. or run `export EMBEDDING_MODEL=gemini` or EMBEDDING_MODEL=gemini python -m app.ingestion.processor DATA/noisy_data noisy
+
 ### 1. Ingest only clean data
 
 ```bash

@@ -132,6 +132,10 @@ def run_universal_ingestion(
     """
 
     with logfire.span("Universal Ingestion Started", base_directory=base_dir):
+        if wipe and qdrant_client.collection_exists(settings.QDRANT_COLLECTION):
+            qdrant_client.delete_collection(settings.QDRANT_COLLECTION)
+            logfire.info(f"Wiped collection '{settings.QDRANT_COLLECTION}'")
+
         # Recreate collection - dimension resolved at runtime after embedding model probe
         if not qdrant_client.collection_exists(settings.QDRANT_COLLECTION):
             dim = get_embedding_dim()

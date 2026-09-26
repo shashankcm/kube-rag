@@ -6,7 +6,7 @@ from sentence_transformers import SentenceTransformer
 
 from app.config import settings
 
-BATCH_SIZE = 50
+_BATCH_SIZE = 50
 _GEMINI_DIM = 3072
 _FALLBACK_DIM = 768  # all-mpnet-base-v2
 _RATE_LIMIT_ERRORS = ["429", "rate", "quota", "resource_exhausted"]
@@ -38,6 +38,7 @@ def _load_fallback() -> SentenceTransformer:
 
 
 def _init():
+    """Initialise embedding model once per process. Called lazily on first use."""
     global _active_model, _model_type
 
     if _active_model is not None:
@@ -93,12 +94,12 @@ def embed_query(query: str) -> list[float]:
         return _active_model.encode([query], show_progress_bar=False).tolist()
 
 
-def embed_text(texts: list[str]) -> list[list[float]]:
+def embed_texts(texts: list[str]) -> list[list[float]]:
     """Embed a single text using the active model."""
     _init()
     all_embeddings: list[list[float]] = []
     for i in range(0, len(texts), _BATCH_SIZE):
         batch = texts[i : i + _BATCH_SIZE]
-        with logfire.span(f"Embed batch", model=_model_type, start=i, size=len(batch)):
+        with logfire.span("Embed batch", model=_model_type, start=i, size=len(batch)):
             all_embeddings.extend(_embed_batch(batch))
     return all_embeddings

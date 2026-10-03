@@ -1,0 +1,6 @@
+# Exclude entire data directories from language stats
+processed_data/**/* linguist-vendored
+DATA/**/* linguist-vendored
+
+# Or explicitly tell GitHub to ignore all HTML files in the repo
+*.html linguist-detectable=false

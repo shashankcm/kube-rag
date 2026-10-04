@@ -14,12 +14,22 @@ logfire.configure(token=os.getenv("LOGFIRE_TOKEN"))
 from typing import Optional
 
 from fastapi import FastAPI, Response
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from app.agents.graph import rag_agent
 
 # Initialize FastAPI
 app = FastAPI(title="Enterprise Agentic RAG API")
+
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class QueryRequest(BaseModel):

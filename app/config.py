@@ -18,7 +18,7 @@ class Settings:
 
     # --- REASONING ENGINE (GROQ) ---
     GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-    GROQ_MODEL = "llama-3.3-70b-versatile"
+    GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
     GROQ_FALLBACK_API_KEY = os.getenv("GROQ_FALLBACK_API_KEY")
 
     # --- LLM GATEWAY (PORTKEY) ---
@@ -29,7 +29,7 @@ class Settings:
     # --- OBSERVABILITY ---
     LANGSMITH_TRACING = os.getenv("LANGSMITH_TRACING", "true")
     LANGSMITH_API_KEY = os.getenv("LANGSMITH_API_KEY")
-    LANGSMITH_PROJECT = os.getenv("LANGSMITH_PROJECT", "rag_scale_test")
+    LANGSMITH_PROJECT = os.getenv("LANGSMITH_PROJECT", "kube-rag")
     LANGSMITH_ENDPOINT = os.getenv(
         "LANGSMITH_ENDPOINT", "https://api.smith.langchain.com"
     )

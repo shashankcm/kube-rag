@@ -73,3 +73,15 @@ class A data
 class I,J,K metric
 class A_FILE,B_FILE,F_FILE,G_FILE,H_FILE,I_FILE,J_FILE,K_FILE,L_FILE program
 ```
+
+BE:
+
+```bash
+uvicorn app.main:app --reload --port 8000
+```
+
+UI:
+
+```bash
+streamlit run ui/app.py
+```

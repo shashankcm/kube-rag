@@ -42,6 +42,12 @@ def home():
     return {"message": "Enterprise LangGraph RAG API is live."}
 
 
+@app.get("/health")
+def health():
+    """Health check endpoint"""
+    return {"status": "online", "message": "Backend is running"}
+
+
 @app.get("/graph")
 def get_graph_image():
     """

@@ -96,7 +96,7 @@ def embed_query(query: str) -> list[float]:
     if _model_type == "gemini":
         return _active_model.embed_query(query)
     else:
-        return _active_model.encode([query], show_progress_bar=False).tolist()
+        return _active_model.encode([query], show_progress_bar=False).tolist()[0]
 
 
 def embed_texts(texts: list[str]) -> list[list[float]]:

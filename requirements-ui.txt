@@ -3,18 +3,18 @@
 # ==============================================================================
 
 # --- STREAMLIT ---
-streamlit==1.40.1
+streamlit>=1.28.0
 
 # --- HTTP & REQUESTS ---
-requests==2.33.1
+requests>=2.31.0
 
 # --- EMBEDDINGS (for fallback if needed) ---
-sentence-transformers==3.3.1
+sentence-transformers>=2.2.0
 
 # --- OBSERVABILITY ---
-logfire==4.32.1
-loguru==0.7.3
-python-dotenv==1.2.2
+logfire>=0.30.0
+loguru>=0.7.0
+python-dotenv>=1.0.0
 
 # --- LLM API ---
-groq==0.15.0
+groq>=0.4.0

@@ -1,0 +1,85 @@
+version: '3.9'
+
+services:
+  # FastAPI Backend
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8080"
+    environment:
+      - PYTHONUNBUFFERED=1
+      # Qdrant Configuration
+      - QDRANT_CLUSTER_ENDPOINT=${QDRANT_CLUSTER_ENDPOINT:-http://qdrant:6333}
+      - QDRANT_API_KEY=${QDRANT_API_KEY}
+      # Embedding Model
+      - EMBEDDING_MODEL=${EMBEDDING_MODEL:-sentence-transformers}
+      # LLM Configuration
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - GROQ_MODEL=${GROQ_MODEL:-openai/gpt-oss-120b}
+      # Observability
+      - LOGFIRE_TOKEN=${LOGFIRE_TOKEN}
+      - LANGSMITH_TRACING=${LANGSMITH_TRACING:-true}
+      - LANGSMITH_API_KEY=${LANGSMITH_API_KEY}
+      - LANGSMITH_PROJECT=${LANGSMITH_PROJECT:-kube-rag}
+      - LANGSMITH_ENDPOINT=${LANGSMITH_ENDPOINT:-https://api.smith.langchain.com}
+      # Gemini (optional)
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    depends_on:
+      - qdrant
+    volumes:
+      - ./processed_data:/app/processed_data
+    networks:
+      - kube-rag-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Streamlit UI
+  ui:
+    build:
+      context: .
+      dockerfile: ui.Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - BACKEND_URL=http://backend:8080
+      - LOGFIRE_TOKEN=${LOGFIRE_TOKEN}
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - kube-rag-network
+    restart: unless-stopped
+    command: streamlit run ui/app.py --server.port=8501 --server.address=0.0.0.0
+
+  # Qdrant Vector Database (local, optional)
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    environment:
+      - QDRANT_API_KEY=${QDRANT_API_KEY}
+    volumes:
+      - qdrant_storage:/qdrant/storage
+      - qdrant_snapshots:/qdrant/snapshots
+    networks:
+      - kube-rag-network
+    restart: unless-stopped
+    profiles:
+      - local  # Run with: docker-compose --profile local up
+
+volumes:
+  qdrant_storage:
+  qdrant_snapshots:
+
+networks:
+  kube-rag-network:
+    driver: bridge

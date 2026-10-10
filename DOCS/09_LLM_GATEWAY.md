@@ -28,15 +28,15 @@ Your App  →  [LLM Gateway]  →  Groq / NVIDIA / OpenAI / Anthropic
 
 Direct LLM calls work fine in a notebook. In production, they break:
 
-| Problem | What Happens Without a Gateway |
-|---|---|
-| **Provider rate limit (429)** | App crashes with an error at 3 AM |
-| **Provider outage** | Full downtime — no automatic recovery |
-| **Slow response / stall** | FastAPI worker hangs indefinitely |
-| **Same question 1000 times** | You pay for 1000 LLM calls |
-| **Switch providers** | Rewrite every API call across 10+ files |
-| **No audit trail** | Zero visibility — impossible to debug or bill |
-| **No per-feature analytics** | No idea which part of the app costs the most |
+| Problem                       | What Happens Without a Gateway                |
+| ----------------------------- | --------------------------------------------- |
+| **Provider rate limit (429)** | App crashes with an error at 3 AM             |
+| **Provider outage**           | Full downtime — no automatic recovery         |
+| **Slow response / stall**     | FastAPI worker hangs indefinitely             |
+| **Same question 1000 times**  | You pay for 1000 LLM calls                    |
+| **Switch providers**          | Rewrite every API call across 10+ files       |
+| **No audit trail**            | Zero visibility — impossible to debug or bill |
+| **No per-feature analytics**  | No idea which part of the app costs the most  |
 
 A gateway solves all of these — **centrally, without touching business logic**.
 
@@ -90,10 +90,10 @@ graph LR
     style ConfigID fill:#fff3cd,color:#000
 ```
 
-| Thing | Looks like | Answers |
-|---|---|---|
-| **Provider slug** | `flight-policsy` | *Which provider / model?* |
-| **Config ID** | `pc-ssss-d8a1e4` | *How to route, retry, cache?* |
+| Thing             | Looks like       | Answers                       |
+| ----------------- | ---------------- | ----------------------------- |
+| **Provider slug** | `flight-policsy` | _Which provider / model?_     |
+| **Config ID**     | `pc-ssss-d8a1e4` | _How to route, retry, cache?_ |
 
 ---
 
@@ -107,7 +107,7 @@ from portkey_ai import Portkey
 portkey = Portkey(api_key=PORTKEY_API_KEY)
 
 response = portkey.chat.completions.create(
-    model="@flight-policsy/llama-3.3-70b-versatile",
+    model="@kube-rage-groq/llama-3.3-70b-versatile",
     messages=[{"role": "user", "content": "What is Kubernetes?"}]
 )
 ```
@@ -147,6 +147,7 @@ graph LR
 ```
 
 **Questions you can now answer from the dashboard — zero extra logging code:**
+
 - Which user generates the most cost?
 - Which feature uses the most tokens?
 - Is the RAG pipeline slower than the support bot?
@@ -237,6 +238,7 @@ flowchart LR
 ```
 
 **Narrowing the trigger** (avoids fallback on bad requests):
+
 ```python
 "strategy": {"mode": "fallback", "on_status_codes": [429, 503]}
 ```
@@ -265,12 +267,12 @@ pie title Traffic Distribution
 
 **Use cases:**
 
-| Scenario | Config |
-|---|---|
-| **Gradual migration** | Start 95/5, shift to 0/100 over weeks |
-| **A/B testing** | 50/50 — compare quality per model |
-| **Cost control** | Route more traffic to the cheaper model |
-| **Maintenance** | `weight: 0` pauses a target without removing it |
+| Scenario              | Config                                          |
+| --------------------- | ----------------------------------------------- |
+| **Gradual migration** | Start 95/5, shift to 0/100 over weeks           |
+| **A/B testing**       | 50/50 — compare quality per model               |
+| **Cost control**      | Route more traffic to the cheaper model         |
+| **Maintenance**       | `weight: 0` pauses a target without removing it |
 
 ---
 
@@ -303,13 +305,14 @@ sequenceDiagram
 **Verify cache hit:** Portkey Logs → click any request → look for `cache_status: HIT`.
 
 **Force a fresh response** (e.g. after updating your knowledge base):
+
 ```python
 portkey.with_options(cache_force_refresh=True).chat.completions.create(...)
 ```
 
-| Cache Mode | How it matches | Plan |
-|---|---|---|
-| `simple` | Exact request match | Free / Starter |
+| Cache Mode | How it matches        | Plan                     |
+| ---------- | --------------------- | ------------------------ |
+| `simple`   | Exact request match   | Free / Starter           |
 | `semantic` | Similar meaning match | **Enterprise tier only** |
 
 > **Semantic cache on free/starter plans:** If your Portkey account is not on Enterprise, setting `"mode": "semantic"` silently falls back to simple (exact-match) cache behaviour. No error is thrown. The code is correct to set semantic — it will upgrade automatically when the account tier changes.
@@ -344,6 +347,7 @@ Portkey exposes an OpenAI-compatible endpoint. Swap `ChatGroq` for `ChatOpenAI` 
 > **Why ChatOpenAI and not ChatGroq?**
 >
 > Every LLM company's API has an **address** (URL):
+>
 > - Groq's address: `https://api.groq.com/openai/v1`
 > - Portkey's address: `https://api.portkey.ai/v1`
 >
@@ -484,12 +488,12 @@ graph TD
     style GW fill:#f0ad4e,color:#000
 ```
 
-| | Guardrails | Gateway |
-|---|---|---|
-| **Asks** | *Should this request happen at all?* | *How should this request be sent?* |
-| **Layer** | Before the LLM pipeline | Around every LLM call |
-| **Blocks** | Jailbreaks, off-topic, PII | Nothing — routes and retries |
-| **Tool** | NeMo Guardrails (Colang) | Portkey |
+|            | Guardrails                           | Gateway                            |
+| ---------- | ------------------------------------ | ---------------------------------- |
+| **Asks**   | _Should this request happen at all?_ | _How should this request be sent?_ |
+| **Layer**  | Before the LLM pipeline              | Around every LLM call              |
+| **Blocks** | Jailbreaks, off-topic, PII           | Nothing — routes and retries       |
+| **Tool**   | NeMo Guardrails (Colang)             | Portkey                            |
 
 Use both together: guardrails at the gate, gateway for everything that passes through.
 
@@ -497,15 +501,16 @@ Use both together: guardrails at the gate, gateway for everything that passes th
 
 ## Framework Comparison
 
-| Framework | Type | Dashboard | Fallbacks | Caching | Best For |
-|---|---|---|---|---|---|
-| **Portkey** | Managed proxy + SDK | ✅ Beautiful | ✅ | ✅ | Enterprise observability + configs |
-| **LiteLLM** | Python library | ⚠️ Basic | ✅ | ✅ | Pure code, no dashboard needed |
-| **Azure AI Gateway** | Azure managed | ✅ Azure Portal | ✅ | ✅ | Azure-native workloads |
-| **AWS Bedrock** | AWS managed | ✅ CloudWatch | ✅ | ✅ | AWS-native workloads |
-| **Direct SDK** | No proxy | ❌ None | ❌ Manual | ❌ Manual | Prototyping only |
+| Framework            | Type                | Dashboard       | Fallbacks | Caching   | Best For                           |
+| -------------------- | ------------------- | --------------- | --------- | --------- | ---------------------------------- |
+| **Portkey**          | Managed proxy + SDK | ✅ Beautiful    | ✅        | ✅        | Enterprise observability + configs |
+| **LiteLLM**          | Python library      | ⚠️ Basic        | ✅        | ✅        | Pure code, no dashboard needed     |
+| **Azure AI Gateway** | Azure managed       | ✅ Azure Portal | ✅        | ✅        | Azure-native workloads             |
+| **AWS Bedrock**      | AWS managed         | ✅ CloudWatch   | ✅        | ✅        | AWS-native workloads               |
+| **Direct SDK**       | No proxy            | ❌ None         | ❌ Manual | ❌ Manual | Prototyping only                   |
 
 **Why Portkey for this system:**
+
 - LLM-agnostic — Groq today, any provider tomorrow, no code changes
 - Dashboard built for debugging RAG systems (full prompt + response logs)
 - Config-as-JSON means routing rules can change without redeploy
@@ -516,28 +521,28 @@ Use both together: guardrails at the gate, gateway for everything that passes th
 
 ## Quick Reference — Config Keys
 
-| Key | What it does | Example value |
-|---|---|---|
-| `strategy.mode` | Routing strategy | `"fallback"` / `"loadbalance"` |
-| `strategy.on_status_codes` | Narrow fallback trigger | `[429, 503]` |
-| `retry.attempts` | Max retry count | `3` |
-| `retry.on_status_codes` | Which errors trigger retry | `[429, 500, 502, 503, 504]` |
-| `request_timeout` | Hard time limit in ms | `10000` (10 seconds) |
-| `cache.mode` | Caching strategy | `"simple"` / `"semantic"` |
-| `targets[].override_params.model` | Model for this target | `"@slug/model-name"` |
-| `targets[].weight` | Load balance weight | `0.7` (70%) |
+| Key                               | What it does               | Example value                  |
+| --------------------------------- | -------------------------- | ------------------------------ |
+| `strategy.mode`                   | Routing strategy           | `"fallback"` / `"loadbalance"` |
+| `strategy.on_status_codes`        | Narrow fallback trigger    | `[429, 503]`                   |
+| `retry.attempts`                  | Max retry count            | `3`                            |
+| `retry.on_status_codes`           | Which errors trigger retry | `[429, 500, 502, 503, 504]`    |
+| `request_timeout`                 | Hard time limit in ms      | `10000` (10 seconds)           |
+| `cache.mode`                      | Caching strategy           | `"simple"` / `"semantic"`      |
+| `targets[].override_params.model` | Model for this target      | `"@slug/model-name"`           |
+| `targets[].weight`                | Load balance weight        | `0.7` (70%)                    |
 
 ## Quick Reference — Python API
 
-| Method | What it does |
-|---|---|
-| `Portkey(api_key=..., config={...})` | Client with inline config |
-| `Portkey(api_key=..., config="pc-...")` | Client with saved dashboard config |
-| `portkey.chat.completions.create(model="@slug/model", ...)` | Standard LLM call via gateway |
-| `portkey.with_options(metadata={...})` | Override options for one request |
-| `portkey.with_options(cache_force_refresh=True)` | Bypass cache for this request |
-| `createHeaders(api_key=..., metadata={...})` | Build headers for LangChain integration |
-| `PORTKEY_GATEWAY_URL` | `https://api.portkey.ai/v1` — the proxy endpoint |
+| Method                                                      | What it does                                     |
+| ----------------------------------------------------------- | ------------------------------------------------ |
+| `Portkey(api_key=..., config={...})`                        | Client with inline config                        |
+| `Portkey(api_key=..., config="pc-...")`                     | Client with saved dashboard config               |
+| `portkey.chat.completions.create(model="@slug/model", ...)` | Standard LLM call via gateway                    |
+| `portkey.with_options(metadata={...})`                      | Override options for one request                 |
+| `portkey.with_options(cache_force_refresh=True)`            | Bypass cache for this request                    |
+| `createHeaders(api_key=..., metadata={...})`                | Build headers for LangChain integration          |
+| `PORTKEY_GATEWAY_URL`                                       | `https://api.portkey.ai/v1` — the proxy endpoint |
 
 ---
 
@@ -587,10 +592,10 @@ GATEWAY_CONFIG = {
 
 ### Two Clients, Two Purposes
 
-| Client | Used in | Why |
-|---|---|---|
-| `portkey_client` (native) | `responder.py` | Exposes response headers → can read `x-portkey-cache-status` |
-| `get_langchain_llm()` (ChatOpenAI) | `planner.py` | Preserves `.invoke()` interface — zero logic changes to node |
+| Client                             | Used in        | Why                                                          |
+| ---------------------------------- | -------------- | ------------------------------------------------------------ |
+| `portkey_client` (native)          | `responder.py` | Exposes response headers → can read `x-portkey-cache-status` |
+| `get_langchain_llm()` (ChatOpenAI) | `planner.py`   | Preserves `.invoke()` interface — zero logic changes to node |
 
 ### Cache Hit Detection
 
@@ -625,19 +630,19 @@ is_cache_hit = cache_status == "HIT"
 
 The `thought_process` field in the API response (shown as the plan in the UI) reflects the cache status:
 
-| Scenario | `thought_process` |
-|---|---|
-| Technical question, cache miss | `["Intent: Technical", "Search Term: ...", "Context Retrieved"]` |
-| Technical question, cache hit | `["Intent: Technical", "Search Term: ...", "Context Retrieved", "Cache: Hit ⚡"]` |
-| Conversational | `["Intent: Conversational/Memory", "Retrieval: Skipped"]` |
-| Guardrails fired | `["Intent: Guardrails Fired", "Retrieval: Skipped"]` |
+| Scenario                       | `thought_process`                                                                 |
+| ------------------------------ | --------------------------------------------------------------------------------- |
+| Technical question, cache miss | `["Intent: Technical", "Search Term: ...", "Context Retrieved"]`                  |
+| Technical question, cache hit  | `["Intent: Technical", "Search Term: ...", "Context Retrieved", "Cache: Hit ⚡"]` |
+| Conversational                 | `["Intent: Conversational/Memory", "Retrieval: Skipped"]`                         |
+| Guardrails fired               | `["Intent: Guardrails Fired", "Retrieval: Skipped"]`                              |
 
 ### Logfire Events Added
 
-| Event | Trigger |
-|---|---|
-| `⚡ Gateway Cache Hit` | `x-portkey-cache-status: HIT` in responder response |
-| `✅ Response synthesised via LLM` | Normal generation (cache miss) |
+| Event                             | Trigger                                             |
+| --------------------------------- | --------------------------------------------------- |
+| `⚡ Gateway Cache Hit`            | `x-portkey-cache-status: HIT` in responder response |
+| `✅ Response synthesised via LLM` | Normal generation (cache miss)                      |
 
 ### Portkey Dashboard — Automatic
 

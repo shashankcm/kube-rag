@@ -18,6 +18,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from app.agents.graph import rag_agent
+from app.guardrails import guard, initialize_rails
 
 # Initialize FastAPI
 app = FastAPI(title="Enterprise Agentic RAG API")
@@ -30,6 +31,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("startup")
+def startup_event():
+    initialize_rails()
 
 
 class QueryRequest(BaseModel):
@@ -80,6 +86,20 @@ def query(request: QueryRequest):
     config = {"configurable": {"thread_id": thread_id}}
 
     try:
+        # Gate 1: NeMo Guardrails — blocks off-topic, jailbreaks, and handles dialog
+        rail_fired, rail_response = guard(q)
+        if rail_fired:
+            logfire.info(f"🛡️ Request blocked by guardrails | thread={thread_id}")
+            return {
+                "question": q,
+                "answer": rail_response,
+                "thought_process": ["Intent: Guardrails Fired", "Retrieval: Skipped"],
+                "status": "Blocked by guardrails.",
+                "sources": [],
+            }
+
+        # Gate 2: LangGraph RAG pipeline
+        # Run the graph synchronously to preserve Logfire context variables
         final_output = rag_agent.invoke(initial_state, config=config)
 
         return {

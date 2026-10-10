@@ -8,7 +8,14 @@ import logfire
 from dotenv import load_dotenv
 
 load_dotenv()
-logfire.configure(token=os.getenv("LOGFIRE_TOKEN"))
+
+# Configure logfire only if token is provided
+logfire_token = os.getenv("LOGFIRE_TOKEN")
+if logfire_token:
+    logfire.configure(token=logfire_token)
+else:
+    # Use default configuration without token (local-only mode)
+    logfire.configure()
 
 # Now safe to import app modules - logfire is already active
 from typing import Optional

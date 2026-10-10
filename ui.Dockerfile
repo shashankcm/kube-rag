@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements
-COPY requirements-prod.txt .
-RUN pip install --no-cache-dir --prefer-binary -r requirements-prod.txt streamlit
+COPY requirements-ui.txt .
+RUN pip install --no-cache-dir --prefer-binary -r requirements-ui.txt
 
 # Copy app
 COPY ui/ ./ui/

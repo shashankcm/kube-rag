@@ -1,0 +1,20 @@
+# ==============================================================================
+# STREAMLIT UI REQUIREMENTS
+# ==============================================================================
+
+# --- STREAMLIT ---
+streamlit==1.40.1
+
+# --- HTTP & REQUESTS ---
+requests==2.33.1
+
+# --- EMBEDDINGS (for fallback if needed) ---
+sentence-transformers==3.3.1
+
+# --- OBSERVABILITY ---
+logfire==4.32.1
+loguru==0.7.3
+python-dotenv==1.2.2
+
+# --- LLM API ---
+groq==0.15.0

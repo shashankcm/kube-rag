@@ -14,7 +14,6 @@ RUN pip install --no-cache-dir --prefer-binary -r requirements-prod.txt streamli
 # Copy app
 COPY ui/ ./ui/
 COPY app/ ./app/
-COPY .env .env
 
 EXPOSE 8501
 

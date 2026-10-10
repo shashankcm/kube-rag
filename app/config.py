@@ -23,8 +23,10 @@ class Settings:
 
     # --- LLM GATEWAY (PORTKEY) ---
     PORTKEY_API_KEY = os.getenv("PORTKEY_API_KEY")
-    GROQ_SLUG = "rag"  # primary: @rag/llama-3.3-70b-versatile
-    GROQ_SLUG_2 = "brag"  # fallback: @brag/llama-3.1-8b-instant
+    GROQ_SLUG = os.getenv("PORTKEY_GROQ_SLUG", "kube-rage-groq")  # Portkey Groq integration slug
+    GROQ_SLUG_2 = os.getenv("PORTKEY_GROQ_SLUG_2", GROQ_SLUG)  # fallback integration (same by default)
+    # Optional saved Portkey config ("pc-...") — enables fallback/cache/retry when inline configs are disabled
+    PORTKEY_CONFIG_ID = os.getenv("PORTKEY_CONFIG_ID")
 
     # --- OBSERVABILITY ---
     LANGSMITH_TRACING = os.getenv("LANGSMITH_TRACING", "true")

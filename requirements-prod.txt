@@ -18,7 +18,15 @@ langgraph>=0.1.0
 langchain-groq>=0.1.0
 langchain-community>=0.0.1
 langchain-openai>=0.1.0
+langchain-google-genai
+langchain-google-vertexai
+portkey-ai
+nemoguardrails
 pydantic>=2.0.0
+
+# --- RETRIEVAL / EMBEDDINGS ---
+sentence-transformers
+flashrank
 
 # --- OBSERVABILITY ---
 langsmith>=0.1.0
@@ -29,4 +37,6 @@ loguru>=0.7.0
 python-pptx>=1.0.0
 python-docx>=1.0.0
 pypdf>=4.0.0
+pdfplumber
+unstructured
 beautifulsoup4>=4.12.0

@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   # FastAPI Backend
   backend:
@@ -26,8 +24,6 @@ services:
       - LANGSMITH_ENDPOINT=${LANGSMITH_ENDPOINT:-https://api.smith.langchain.com}
       # Gemini (optional)
       - GEMINI_API_KEY=${GEMINI_API_KEY}
-    depends_on:
-      - qdrant
     volumes:
       - ./processed_data:/app/processed_data
     networks:
@@ -52,8 +48,7 @@ services:
       - BACKEND_URL=http://backend:8080
       - LOGFIRE_TOKEN=${LOGFIRE_TOKEN}
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     networks:
       - kube-rag-network
     restart: unless-stopped

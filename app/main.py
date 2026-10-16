@@ -88,6 +88,7 @@ def query(request: QueryRequest):
         "messages": [{"role": "user", "content": q}],
         "current_query": q,
         "documents": [],
+        "citations": [],
         "plan": ["Start"],
         "status": "Initializing Graph...",
     }
@@ -106,6 +107,7 @@ def query(request: QueryRequest):
                 "thought_process": ["Intent: Guardrails Fired", "Retrieval: Skipped"],
                 "status": "Blocked by guardrails.",
                 "sources": [],
+                "citations": [],
             }
 
         # Gate 2: LangGraph RAG pipeline
@@ -118,6 +120,7 @@ def query(request: QueryRequest):
             "thought_process": final_output.get("plan"),
             "status": final_output.get("status"),
             "sources": final_output.get("documents", []),
+            "citations": final_output.get("citations", []),
         }
     except Exception as e:
         logfire.error(f"❌ Backend Execution Failed: {e}")
@@ -127,4 +130,5 @@ def query(request: QueryRequest):
             "thought_process": ["Error encountered during execution."],
             "status": "error",
             "sources": [],
+            "citations": [],
         }

@@ -20,6 +20,19 @@ def generate_node(state: AgentState):
 
     user_msg = state["messages"][-1]["content"] if state["messages"] else ""
 
+    if query != "CONVERSATIONAL" and not state.get("documents"):
+        logfire.warning("Technical question with no retrieved context; skipping the LLM.")
+        content = (
+            "I don't have enough information in the documentation to answer that. "
+            "Try rephrasing the question, or ask about a topic the knowledge base covers."
+        )
+        return {
+            "final_answer": content,
+            "status": "No relevant context found.",
+            "plan": state["plan"] + ["Answer: insufficient context"],
+            "messages": [{"role": "assistant", "content": content}],
+        }
+
     if query == "CONVERSATIONAL":
         logfire.info("Generating conversational response using memory.")
         prompt = f"""
@@ -46,7 +59,9 @@ def generate_node(state: AgentState):
 
         prompt = f"""
         You are a Senior Technical Architect.
-        Answer the question using the TECHNICAL CONTEXT provided.
+        Answer the question using ONLY the TECHNICAL CONTEXT provided.
+        If the context does not contain the answer, say you don't know.
+        Do not use outside knowledge.
 
         TECHNICAL CONTEXT:
         {full_context}

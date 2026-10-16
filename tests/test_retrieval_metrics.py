@@ -1,5 +1,8 @@
 """Hand-computed checks for the LLM-free retrieval metrics."""
 
+import subprocess
+import sys
+
 import pytest
 
 from evals.retrieval_metrics import (
@@ -79,6 +82,24 @@ def test_summarize_separates_answerable_from_unanswerable():
     assert s["refusal_rate_on_unanswerable"]["mean"] == 0.5
     assert s["refusal_rate_on_unanswerable"]["n"] == 2
     assert "suggested_score_threshold" in s
+
+
+def test_metrics_and_runner_import_without_loading_ragas():
+    # The LLM-free eval must run in an environment where ragas is missing or incompatible.
+    code = (
+        "import sys; import evals.retrieval_metrics, evals.run_retrieval_eval; "
+        "assert 'ragas' not in sys.modules, 'ragas was imported'"
+    )
+    done = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True)
+    assert done.returncode == 0, done.stderr[-500:]
+
+
+def test_lazy_package_exports_still_resolve():
+    import evals
+
+    assert "run_all_metrics" in evals.__all__
+    with pytest.raises(AttributeError):
+        evals.not_a_real_name
 
 
 def test_summarize_without_answers_or_scores_omits_those_sections():

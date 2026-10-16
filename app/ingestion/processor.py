@@ -8,7 +8,7 @@ from qdrant_client import QdrantClient
 from qdrant_client.http.models import models
 
 from app.config import settings
-from app.ingestion.chuncking.splitter import chunk_text
+from app.ingestion.chunking.splitter import chunk_text
 from app.ingestion.loaders.html import parse_html
 from app.ingestion.loaders.pdf import parse_pdf
 from app.ingestion.loaders.text import parse_text

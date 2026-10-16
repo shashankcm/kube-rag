@@ -25,7 +25,7 @@ langchain                   # Core LLM orchestration
 langgraph                   # State-machine logic for cyclic agent flows
 langchain-groq              # Integration for lightning-fast Llama 3.3 models
 langchain-google-vertexai   # Required shim for NeMo Guardrails internal import (no GCP credentials needed)
-langchain-community         # Community-contributed tools and loaders
+langchain-community<0.4     # pinned: ragas 0.4.x imports langchain_community.chat_models.vertexai, removed in 0.4
 langchain-openai            # OpenAI-compatible layer (used by Portkey gateway)
 pydantic>=2.0.0             # Data validation and settings management
 

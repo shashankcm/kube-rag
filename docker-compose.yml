@@ -15,6 +15,10 @@ services:
       - EMBEDDING_MODEL=${EMBEDDING_MODEL:-sentence-transformers}
       # LLM Configuration
       - GROQ_API_KEY=${GROQ_API_KEY}
+      - GROQ_FALLBACK_API_KEY=${GROQ_FALLBACK_API_KEY}
+      - PORTKEY_API_KEY=${PORTKEY_API_KEY}
+      - PORTKEY_GROQ_SLUG=${PORTKEY_GROQ_SLUG:-kube-rage-groq}
+      - PORTKEY_CONFIG_ID=${PORTKEY_CONFIG_ID:-}
       - GROQ_MODEL=${GROQ_MODEL:-openai/gpt-oss-120b}
       # Observability
       - LOGFIRE_TOKEN=${LOGFIRE_TOKEN}
@@ -30,7 +34,7 @@ services:
       - kube-rag-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8080/health')"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -48,7 +52,8 @@ services:
       - BACKEND_URL=http://backend:8080
       - LOGFIRE_TOKEN=${LOGFIRE_TOKEN}
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     networks:
       - kube-rag-network
     restart: unless-stopped

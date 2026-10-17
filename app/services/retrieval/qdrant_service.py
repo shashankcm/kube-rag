@@ -31,6 +31,7 @@ def search_enterprise_knowledge(query: str, limit: int = 8):
                 {
                     "content": res.payload.get("text", ""),
                     "source": res.payload.get("source", "Unknown"),
+                    "chunk_id": res.payload.get("chunk_id") or str(res.id),
                     "score": res.score,
                 }
             )

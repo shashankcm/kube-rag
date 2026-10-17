@@ -1,0 +1,876 @@
+{
+  "version": 2,
+  "description": "Retrieval golden set for kube-rag. Gold = the source file(s) holding the evidence span; every span is verified verbatim against processed_data/true. 'unanswerable' questions have no support in the corpus.",
+  "questions": [
+    {
+      "id": "Q001",
+      "question": "What storage service does the work queue example use to hold the queue?",
+      "reference": "Redis.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "parallel_work_queue.txt",
+          "span": "Start a storage service to hold the work queue. (We will use Redis)."
+        }
+      ]
+    },
+    {
+      "id": "Q002",
+      "question": "What is the name of the queue that is filled with tasks in the work queue example?",
+      "reference": "The queue is named job2.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "parallel_work_queue.txt",
+          "span": "fill the queue (named \"job2\")"
+        }
+      ]
+    },
+    {
+      "id": "Q003",
+      "question": "Which fruits are pushed onto the job2 queue?",
+      "reference": "apple, banana, cherry, date, fig, grape, lemon, melon and orange.",
+      "type": "enumeration",
+      "evidence": [
+        {
+          "source": "parallel_work_queue.txt",
+          "span": "rpush job2 \"apple\""
+        },
+        {
+          "source": "parallel_work_queue.txt",
+          "span": "rpush job2 \"orange\""
+        }
+      ]
+    },
+    {
+      "id": "Q004",
+      "question": "How do workers signal that the queue is empty?",
+      "reference": "They exit with success.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "parallel_work_queue.txt",
+          "span": "Workers signal the queue is empty by exiting with success."
+        }
+      ]
+    },
+    {
+      "id": "Q005",
+      "question": "What parallelism does the work queue Job manifest set?",
+      "reference": "parallelism: 2.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "parallel_work_queue.txt",
+          "span": "parallelism: 2"
+        }
+      ]
+    },
+    {
+      "id": "Q006",
+      "question": "Which command waits up to 300 seconds for the work queue Job to complete?",
+      "reference": "kubectl wait --for=condition=complete --timeout=300s job/job-wq-2",
+      "type": "procedural",
+      "evidence": [
+        {
+          "source": "parallel_work_queue.txt",
+          "span": "kubectl wait --for=condition=complete --timeout=300s job/job-wq-2"
+        }
+      ]
+    },
+    {
+      "id": "Q007",
+      "question": "What does the work queue guide suggest for a continuous stream of background work?",
+      "reference": "Run the background workers with a ReplicaSet instead.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "parallel_work_queue.txt",
+          "span": "running your background workers with a ReplicaSet instead."
+        }
+      ]
+    },
+    {
+      "id": "Q008",
+      "question": "How long is the lease the worker takes on a queue item?",
+      "reference": "10 seconds (lease_secs=10).",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "parallel_work_queue.txt",
+          "span": "q.lease(lease_secs=10, block=True, timeout=2)"
+        }
+      ]
+    },
+    {
+      "id": "Q009",
+      "question": "Which three tools does the Databricks guide compare for managing jobs programmatically?",
+      "reference": "The Databricks CLI, the Databricks SDKs and the REST API.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "job_management.html",
+          "span": "The following table compares the Databricks CLI, the Databricks SDKs, and the REST API"
+        }
+      ]
+    },
+    {
+      "id": "Q010",
+      "question": "Which languages are the Databricks SDKs available for?",
+      "reference": "Python, Java, Go and R.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "job_management.html",
+          "span": "available for Python, Java, Go, or R"
+        }
+      ]
+    },
+    {
+      "id": "Q011",
+      "question": "Which REST API request does the command databricks jobs get map to?",
+      "reference": "GET /api/2.2/jobs/get.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "job_management.html",
+          "span": "maps to GET/api/2.2/jobs/get"
+        }
+      ]
+    },
+    {
+      "id": "Q012",
+      "question": "How many ways are there to run a Databricks job from the command line?",
+      "reference": "Three: on a schedule, run-now, and submit.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "job_management.html",
+          "span": "There are three ways to run your job when using the command line."
+        }
+      ]
+    },
+    {
+      "id": "Q013",
+      "question": "What happens to a Databricks job started with the submit command?",
+      "reference": "It is not saved, is not visible in the UI, and runs once.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "job_management.html",
+          "span": "the job is not saved, and isn't visible in the UI"
+        }
+      ]
+    },
+    {
+      "id": "Q014",
+      "question": "Which CLI command deletes a Databricks job?",
+      "reference": "databricks jobs delete <job-id>",
+      "type": "procedural",
+      "evidence": [
+        {
+          "source": "job_management.html",
+          "span": "databricks jobs delete <job-id>"
+        }
+      ]
+    },
+    {
+      "id": "Q015",
+      "question": "What does Databricks recommend for managing jobs as part of CI/CD?",
+      "reference": "Databricks Asset Bundles or the Databricks Terraform provider.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "job_management.html",
+          "span": "To programmatically manage jobs as part of CI/CD use"
+        }
+      ]
+    },
+    {
+      "id": "Q016",
+      "question": "Which environment variables does the Databricks REST API example assume are set?",
+      "reference": "DATABRICKS_HOST and DATABRICKS_TOKEN.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "job_management.html",
+          "span": "DATABRICKS_HOST"
+        },
+        {
+          "source": "job_management.html",
+          "span": "DATABRICKS_TOKEN"
+        }
+      ]
+    },
+    {
+      "id": "Q017",
+      "question": "Which tool does the job monitoring tutorial use to run a local Kubernetes cluster?",
+      "reference": "Minikube, a single-node cluster on your local machine.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "monitor_job.docx",
+          "span": "We'll use Minikube, a tool that creates a single-node Kubernetes cluster on your local machine."
+        }
+      ]
+    },
+    {
+      "id": "Q018",
+      "question": "What does a backoffLimit of 4 mean for hello-job?",
+      "reference": "The job retries up to 4 times if it fails.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "monitor_job.docx",
+          "span": "Has a backoffLimit of 4, meaning it will retry up to 4 times if it fails"
+        }
+      ]
+    },
+    {
+      "id": "Q019",
+      "question": "What does the COMPLETIONS column show in kubectl get jobs?",
+      "reference": "The number of completed pods out of the desired completions.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "monitor_job.docx",
+          "span": "COMPLETIONS: The number of completed pods / desired completions"
+        }
+      ]
+    },
+    {
+      "id": "Q020",
+      "question": "Which statuses can a Kubernetes job have according to the tutorial?",
+      "reference": "Active, Completed and Failed.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "monitor_job.docx",
+          "span": "A job can have several statuses:"
+        }
+      ]
+    },
+    {
+      "id": "Q021",
+      "question": "How do you follow a job pod's logs in real time?",
+      "reference": "kubectl logs -f <pod-name>",
+      "type": "procedural",
+      "evidence": [
+        {
+          "source": "monitor_job.docx",
+          "span": "kubectl logs -f <pod-name>"
+        }
+      ]
+    },
+    {
+      "id": "Q022",
+      "question": "How do you list only the pods that belong to the job hello-job?",
+      "reference": "kubectl get pods -l job-name=hello-job",
+      "type": "procedural",
+      "evidence": [
+        {
+          "source": "monitor_job.docx",
+          "span": "kubectl get pods -l job-name=hello-job"
+        }
+      ]
+    },
+    {
+      "id": "Q023",
+      "question": "How do you read the number of succeeded pods for labeled-job with JSONPath?",
+      "reference": "kubectl get job labeled-job -o jsonpath='{.status.succeeded}'",
+      "type": "procedural",
+      "evidence": [
+        {
+          "source": "monitor_job.docx",
+          "span": "kubectl get job labeled-job -o jsonpath='{.status.succeeded}'"
+        }
+      ]
+    },
+    {
+      "id": "Q024",
+      "question": "How do you filter jobs by both the department and environment labels?",
+      "reference": "kubectl get jobs -l department=engineering,environment=training",
+      "type": "procedural",
+      "evidence": [
+        {
+          "source": "monitor_job.docx",
+          "span": "kubectl get jobs -l department=engineering,environment=training"
+        }
+      ]
+    },
+    {
+      "id": "Q025",
+      "question": "What schedule does simple-cronjob use?",
+      "reference": "Every minute (*/1 * * * *).",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "monitor_job.docx",
+          "span": "schedule: \"*/1 * * * *\""
+        }
+      ]
+    },
+    {
+      "id": "Q026",
+      "question": "Can you read a job's logs after the job has completed?",
+      "reference": "Yes, logs remain available after completion.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "monitor_job.docx",
+          "span": "you can view the logs even after the job has completed"
+        }
+      ]
+    },
+    {
+      "id": "Q027",
+      "question": "Which Kubernetes version does the architecture overview deck cover?",
+      "reference": "Kubernetes v1.8.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "Kubernetes v1.8"
+        }
+      ]
+    },
+    {
+      "id": "Q028",
+      "question": "How does the architecture deck describe Kubernetes?",
+      "reference": "As the linux kernel of distributed systems.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "Kubernetes is the linux kernel of distributed systems."
+        }
+      ]
+    },
+    {
+      "id": "Q029",
+      "question": "Which Google systems informed the design of Kubernetes?",
+      "reference": "Borg and Omega.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "lessons learned from developing and managing Borg and Omega"
+        }
+      ]
+    },
+    {
+      "id": "Q030",
+      "question": "Which master components does the deck list?",
+      "reference": "kube-apiserver, etcd, kube-controller-manager, cloud-controller-manager and kube-scheduler.",
+      "type": "enumeration",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "Kube-apiserver Etcd Kube-controller-manager Cloud-controller-manager Kube-scheduler"
+        }
+      ]
+    },
+    {
+      "id": "Q031",
+      "question": "What role does etcd play in the cluster?",
+      "reference": "It is the cluster datastore: a consistent, highly available key-value store for cluster state.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "Etcd acts as the cluster datastore; providing a strong, consistent and highly available key-value store used for persisting cluster state."
+        }
+      ]
+    },
+    {
+      "id": "Q032",
+      "question": "What does kube-proxy do?",
+      "reference": "It manages network rules on each node and forwards connections or load balances for services.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "Manages the network rules on each node and performs connection forwarding or load balancing for Kubernetes cluster services."
+        }
+      ]
+    },
+    {
+      "id": "Q033",
+      "question": "What do the Kubernetes networking fundamental rules say about NAT?",
+      "reference": "Pods can talk to all other pods, and nodes to all pods, without NAT.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "All Pods can communicate with all other Pods without NAT"
+        }
+      ]
+    },
+    {
+      "id": "Q034",
+      "question": "How many major Service types are there?",
+      "reference": "Four: ClusterIP (default), NodePort, LoadBalancer and ExternalName.",
+      "type": "enumeration",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "Four major Service Types:"
+        }
+      ]
+    },
+    {
+      "id": "Q035",
+      "question": "Which Service type exposes a service only on a cluster-internal IP?",
+      "reference": "ClusterIP, which is the default.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "CluterIP - Exposes service on a strictly cluster-internal IP (default)"
+        }
+      ]
+    },
+    {
+      "id": "Q036",
+      "question": "What is a DaemonSet used for?",
+      "reference": "To ensure matching nodes each run an instance of a Pod, for example log forwarding or health monitoring.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "Ensures that all nodes matching certain criteria will run an instance of a supplied Pod."
+        }
+      ]
+    },
+    {
+      "id": "Q037",
+      "question": "How are StatefulSet pods named?",
+      "reference": "<statefulset name>-<ordinal index>.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "Pods given unique ordinal names using the pattern <statefulset name>-<ordinal index>."
+        }
+      ]
+    },
+    {
+      "id": "Q038",
+      "question": "Which Job fields control the number of pod executions and parallelism?",
+      "reference": "spec.completions and spec.parallelism.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "Number of pod executions can be controlled via spec.completions"
+        }
+      ]
+    },
+    {
+      "id": "Q039",
+      "question": "Are Jobs and their Pods cleaned up automatically after completion?",
+      "reference": "No, they are not automatically cleaned up.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "Jobs and Pods are NOT automatically cleaned up after a job has completed."
+        }
+      ]
+    },
+    {
+      "id": "Q040",
+      "question": "How do Secrets differ from ConfigMaps?",
+      "reference": "Secrets are stored base64-encoded and encrypted at rest if configured.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "Functionally identical to ConfigMaps, but stored encoded as base64, and encrypted at rest (if configured)."
+        }
+      ]
+    },
+    {
+      "id": "Q041",
+      "question": "What does the pause container do for a Pod?",
+      "reference": "It acts as the parent container for the Pod.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "The pause container acts as the parent container for the Pod."
+        }
+      ]
+    },
+    {
+      "id": "Q042",
+      "question": "What must be installed before testing HPA and VPA?",
+      "reference": "The Metrics Server.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "pods_autoscale.html",
+          "span": "Metrics Server installed in your Kubernetes cluster"
+        }
+      ]
+    },
+    {
+      "id": "Q043",
+      "question": "What does the Horizontal Pod Autoscaler do?",
+      "reference": "It scales the number of pods based on observed CPU utilization or other metrics.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "pods_autoscale.html",
+          "span": "automatically scales the number of pods in a replication controller, deployment, or replica set based on observed CPU utilization"
+        }
+      ]
+    },
+    {
+      "id": "Q044",
+      "question": "What replica range and CPU target does the example HPA use?",
+      "reference": "1 to 10 replicas, targeting about 50% CPU.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "pods_autoscale.html",
+          "span": "between 1 and 10 based on the CPU utilization, aiming to keep it around 50%"
+        }
+      ]
+    },
+    {
+      "id": "Q045",
+      "question": "Which command generates load to test the HPA?",
+      "reference": "A busybox load-generator pod started with kubectl run that requests the nginx service in a loop.",
+      "type": "procedural",
+      "evidence": [
+        {
+          "source": "pods_autoscale.html",
+          "span": "kubectl run -i --tty load-generator --rm --image=busybox:1.28 --restart=Never"
+        }
+      ]
+    },
+    {
+      "id": "Q046",
+      "question": "What does the Vertical Pod Autoscaler adjust?",
+      "reference": "The CPU and memory requests and limits of pods.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "pods_autoscale.html",
+          "span": "adjusts the CPU and memory resource requests and limits for your pods"
+        }
+      ]
+    },
+    {
+      "id": "Q047",
+      "question": "Which script installs the Vertical Pod Autoscaler?",
+      "reference": "./hack/vpa-up.sh in the autoscaler repository.",
+      "type": "procedural",
+      "evidence": [
+        {
+          "source": "pods_autoscale.html",
+          "span": "./hack/vpa-up.sh"
+        }
+      ]
+    },
+    {
+      "id": "Q048",
+      "question": "Which updateMode options does VPA support?",
+      "reference": "Off, Initial, Recreate and Auto.",
+      "type": "enumeration",
+      "evidence": [
+        {
+          "source": "pods_autoscale.html",
+          "span": "There are multiple valid options for updateMode in VPA."
+        }
+      ]
+    },
+    {
+      "id": "Q049",
+      "question": "What does VPA updateMode Off do?",
+      "reference": "It only provides recommendations and does not change resources.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "pods_autoscale.html",
+          "span": "VPA will only provide the recommendations, and it will not automatically change resource requirements."
+        }
+      ]
+    },
+    {
+      "id": "Q050",
+      "question": "What minAllowed and maxAllowed CPU does the example VPA set?",
+      "reference": "minAllowed 100m and maxAllowed 200m CPU.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "pods_autoscale.html",
+          "span": "minAllowed: cpu: 100m memory: 50Mi maxAllowed: cpu: 200m"
+        }
+      ]
+    },
+    {
+      "id": "Q051",
+      "question": "Which repository is cloned to install VPA?",
+      "reference": "https://github.com/kubernetes/autoscaler.git",
+      "type": "procedural",
+      "evidence": [
+        {
+          "source": "pods_autoscale.html",
+          "span": "git clone https://github.com/kubernetes/autoscaler.git"
+        }
+      ]
+    },
+    {
+      "id": "Q052",
+      "question": "Which restart policy is not allowed for Jobs and why?",
+      "reference": "Always, because it would prevent the Pod from ever completing.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "cronjobs.docx",
+          "span": "Always: Not allowed (would prevent Pod from ever completing)."
+        }
+      ]
+    },
+    {
+      "id": "Q053",
+      "question": "Can a Job's Pod template be changed after the Job is created?",
+      "reference": "No, it is immutable.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "cronjobs.docx",
+          "span": "Pod template cannot be modified after Job creation."
+        }
+      ]
+    },
+    {
+      "id": "Q054",
+      "question": "What does completions: 5 mean for a Job?",
+      "reference": "The Job completes after 5 successful Pod completions.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "cronjobs.docx",
+          "span": "Job completes after 5 successful Pod completions"
+        }
+      ]
+    },
+    {
+      "id": "Q055",
+      "question": "What does Indexed completion mode give each Pod?",
+      "reference": "A unique completion index, exposed as JOB_COMPLETION_INDEX.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "cronjobs.docx",
+          "span": "Each Pod gets a unique completion index:"
+        }
+      ]
+    },
+    {
+      "id": "Q056",
+      "question": "What is a CronJob?",
+      "reference": "A thin wrapper around Jobs that enables scheduling.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "cronjobs.docx",
+          "span": "A CronJob is a thin wrapper around Jobs that enables scheduling."
+        }
+      ]
+    },
+    {
+      "id": "Q057",
+      "question": "Which cron expression runs a job daily at 2:30 AM?",
+      "reference": "30 2 * * *",
+      "type": "procedural",
+      "evidence": [
+        {
+          "source": "cronjobs.docx",
+          "span": "schedule: \"30 2 * * *\""
+        }
+      ]
+    },
+    {
+      "id": "Q058",
+      "question": "Which CronJob field sets the time zone?",
+      "reference": "timeZone, for example America/New_York.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "cronjobs.docx",
+          "span": "timeZone: \"America/New_York\""
+        }
+      ]
+    },
+    {
+      "id": "Q059",
+      "question": "Which concurrencyPolicy does the database backup CronJob use?",
+      "reference": "Forbid.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "cronjobs.docx",
+          "span": "concurrencyPolicy: Forbid"
+        }
+      ]
+    },
+    {
+      "id": "Q060",
+      "question": "Why is the cron schedule '60 * * * *' invalid?",
+      "reference": "The minute field must be 0-59.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "cronjobs.docx",
+          "span": "schedule: \"60 * * * *\" # Invalid - minute must be 0-59"
+        }
+      ]
+    },
+    {
+      "id": "Q061",
+      "question": "Which Prometheus alert fires when a CronJob has not run in over an hour?",
+      "reference": "CronJobMissing.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "cronjobs.docx",
+          "span": "alert: CronJobMissing"
+        }
+      ]
+    },
+    {
+      "id": "Q062",
+      "question": "Which security context setting stops a job container gaining extra privileges?",
+      "reference": "allowPrivilegeEscalation: false.",
+      "type": "factual",
+      "evidence": [
+        {
+          "source": "cronjobs.docx",
+          "span": "allowPrivilegeEscalation: false"
+        }
+      ]
+    },
+    {
+      "id": "Q063",
+      "question": "What is a Kubernetes Job?",
+      "reference": "A controller or resource that runs one or more pods to completion.",
+      "type": "multi_source",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "The job controller ensures one or more pods are executed and successfully terminates."
+        },
+        {
+          "source": "cronjobs.docx",
+          "span": "A Kubernetes Job is a resource designed to run finite workloads that execute a task to completion."
+        },
+        {
+          "source": "monitor_job.docx",
+          "span": "A Kubernetes Job is a controller that creates one or more pods and ensures they successfully terminate."
+        }
+      ]
+    },
+    {
+      "id": "Q064",
+      "question": "Which field limits how many times a failing Job is retried?",
+      "reference": "backoffLimit.",
+      "type": "multi_source",
+      "evidence": [
+        {
+          "source": "monitor_job.docx",
+          "span": "Has a backoffLimit of 4, meaning it will retry up to 4 times if it fails"
+        },
+        {
+          "source": "cronjobs.docx",
+          "span": "backoffLimit: 3"
+        }
+      ]
+    },
+    {
+      "id": "Q065",
+      "question": "How can a Job run its pods in parallel?",
+      "reference": "Set spec.parallelism (and completions).",
+      "type": "multi_source",
+      "evidence": [
+        {
+          "source": "architecture.pptx",
+          "span": "Jobs can be parallelized using spec.parallelism"
+        },
+        {
+          "source": "cronjobs.docx",
+          "span": "Controls maximum concurrent Pods:"
+        },
+        {
+          "source": "parallel_work_queue.txt",
+          "span": "parallelism: 2"
+        }
+      ]
+    }
+  ],
+  "unanswerable": [
+    {
+      "id": "U01",
+      "question": "How do I configure Istio mutual TLS between two services?",
+      "type": "unanswerable",
+      "evidence": []
+    },
+    {
+      "id": "U02",
+      "question": "How do I upgrade a cluster from Kubernetes 1.8 to 1.9 with kubeadm?",
+      "type": "unanswerable",
+      "evidence": []
+    },
+    {
+      "id": "U03",
+      "question": "What are the pricing tiers for Databricks jobs compute?",
+      "type": "unanswerable",
+      "evidence": []
+    },
+    {
+      "id": "U04",
+      "question": "How do I back up etcd with etcdctl snapshot save?",
+      "type": "unanswerable",
+      "evidence": []
+    },
+    {
+      "id": "U05",
+      "question": "How do I configure a PodDisruptionBudget for a Deployment?",
+      "type": "unanswerable",
+      "evidence": []
+    },
+    {
+      "id": "U06",
+      "question": "How do I write a Kubernetes operator in Go?",
+      "type": "unanswerable",
+      "evidence": []
+    },
+    {
+      "id": "U07",
+      "question": "How do I set up cert-manager to issue TLS certificates for an Ingress?",
+      "type": "unanswerable",
+      "evidence": []
+    },
+    {
+      "id": "U08",
+      "question": "How do I enable Pod Security Admission in restricted mode?",
+      "type": "unanswerable",
+      "evidence": []
+    },
+    {
+      "id": "U09",
+      "question": "Which Kubernetes version removed Docker as a container runtime?",
+      "type": "unanswerable",
+      "evidence": []
+    },
+    {
+      "id": "U10",
+      "question": "How do I configure a NetworkPolicy to block all ingress traffic by default?",
+      "type": "unanswerable",
+      "evidence": []
+    }
+  ]
+}

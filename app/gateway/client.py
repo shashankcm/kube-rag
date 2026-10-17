@@ -1,3 +1,5 @@
+import os
+
 import logfire
 from portkey_ai import Portkey, createHeaders, PORTKEY_GATEWAY_URL
 from langchain_openai import ChatOpenAI
@@ -5,8 +7,11 @@ from langchain_openai import ChatOpenAI
 from app.config import settings
 
 
-# Production gateway config:
-#   - Fallback: primary @rag/llama-3.3-70b-versatile → @brag/llama-3.1-8b-instant on failure
+PRIMARY_MODEL = f"@{settings.GROQ_SLUG}/openai/gpt-oss-120b"
+FALLBACK_MODEL = f"@{settings.GROQ_SLUG_2}/openai/gpt-oss-20b"
+
+# Gateway config (used only as a fallback when PORTKEY_CONFIG_ID is unset; the workspace may reject inline configs):
+#   - Fallback: primary gpt-oss-120b → gpt-oss-20b on failure
 #   - Cache: semantic mode (requires Portkey Enterprise — silently falls back to simple on free/starter)
 #   - Retry: 2 attempts on rate limit / server error before triggering the fallback target
 GATEWAY_CONFIG = {
@@ -17,14 +22,23 @@ GATEWAY_CONFIG = {
         "on_status_codes": [429, 503]
     },
     "targets": [
-        {"override_params": {"model": f"@{settings.GROQ_SLUG}/llama-3.3-70b-versatile"}},
-        {"override_params": {"model": f"@{settings.GROQ_SLUG_2}/llama-3.1-8b-instant"}},
+        {"override_params": {"model": PRIMARY_MODEL}},
+        {"override_params": {"model": FALLBACK_MODEL}},
     ]
 }
 
+# Saved config ID if provided; otherwise no config (direct calls, no fallback/cache).
+# The inline GATEWAY_CONFIG is kept for workspaces that allow it: set PORTKEY_USE_INLINE_CONFIG=1.
+if settings.PORTKEY_CONFIG_ID:
+    ACTIVE_CONFIG = settings.PORTKEY_CONFIG_ID
+elif os.getenv("PORTKEY_USE_INLINE_CONFIG") == "1":
+    ACTIVE_CONFIG = GATEWAY_CONFIG
+else:
+    ACTIVE_CONFIG = None
+
 portkey_client = Portkey(
     api_key=settings.PORTKEY_API_KEY,
-    config=GATEWAY_CONFIG
+    config=ACTIVE_CONFIG
 )
 
 
@@ -42,11 +56,11 @@ def get_langchain_llm(feature: str = "rag") -> ChatOpenAI:
     return ChatOpenAI(
         api_key=settings.PORTKEY_API_KEY,
         base_url=PORTKEY_GATEWAY_URL,
-        model=f"@{settings.GROQ_SLUG}/llama-3.3-70b-versatile",
+        model=PRIMARY_MODEL,
         temperature=0,
         default_headers=createHeaders(
             api_key=settings.PORTKEY_API_KEY,
-            config=GATEWAY_CONFIG,
+            config=ACTIVE_CONFIG,
             metadata={
                 "feature": feature,
                 "_user": "rag-system",

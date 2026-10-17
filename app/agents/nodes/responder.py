@@ -2,6 +2,7 @@ import logfire
 
 from app.agents.state import AgentState
 from app.gateway import extract_cache_status, portkey_client
+from app.gateway.client import PRIMARY_MODEL
 
 
 def generate_node(state: AgentState):
@@ -18,6 +19,19 @@ def generate_node(state: AgentState):
         history_str += f"{role}: {msg['content']}\n"
 
     user_msg = state["messages"][-1]["content"] if state["messages"] else ""
+
+    if query != "CONVERSATIONAL" and not state.get("documents"):
+        logfire.warning("Technical question with no retrieved context; skipping the LLM.")
+        content = (
+            "I don't have enough information in the documentation to answer that. "
+            "Try rephrasing the question, or ask about a topic the knowledge base covers."
+        )
+        return {
+            "final_answer": content,
+            "status": "No relevant context found.",
+            "plan": state["plan"] + ["Answer: insufficient context"],
+            "messages": [{"role": "assistant", "content": content}],
+        }
 
     if query == "CONVERSATIONAL":
         logfire.info("Generating conversational response using memory.")
@@ -45,7 +59,9 @@ def generate_node(state: AgentState):
 
         prompt = f"""
         You are a Senior Technical Architect.
-        Answer the question using the TECHNICAL CONTEXT provided.
+        Answer the question using ONLY the TECHNICAL CONTEXT provided.
+        If the context does not contain the answer, say you don't know.
+        Do not use outside knowledge.
 
         TECHNICAL CONTEXT:
         {full_context}
@@ -60,7 +76,9 @@ def generate_node(state: AgentState):
     with logfire.span("✍️ LLM Synthesis"):
         try:
             response = portkey_client.chat.completions.create(
-                messages=[{"role": "user", "content": prompt}], temperature=0.1
+                model=PRIMARY_MODEL,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.1,
             )
             content = response.choices[0].message.content
             cache_status = extract_cache_status(response)

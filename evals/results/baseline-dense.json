@@ -1,0 +1,1161 @@
+{
+  "label": "baseline-dense",
+  "created": "2026-10-17T00:17:43+00:00",
+  "config": {
+    "mode": "retriever",
+    "k": 5,
+    "candidates": 15,
+    "rerank": true,
+    "embedding_model": "sentence-transformers",
+    "collection": "enterprise_kub_rag"
+  },
+  "summary": {
+    "k": 5,
+    "n_answerable": 65,
+    "n_unanswerable": 10,
+    "hit": {
+      "mean": 0.9846153846153847,
+      "ci95": [
+        0.9538461538461539,
+        1.0
+      ]
+    },
+    "recall": {
+      "mean": 0.9794871794871794,
+      "ci95": [
+        0.9435897435897436,
+        1.0
+      ]
+    },
+    "precision": {
+      "mean": 0.5538461538461539,
+      "ci95": [
+        0.47692307692307695,
+        0.6276923076923077
+      ]
+    },
+    "mrr": {
+      "mean": 0.9358974358974359,
+      "ci95": [
+        0.8846153846153846,
+        0.9769230769230769
+      ]
+    },
+    "suggested_score_threshold": {
+      "threshold": 0.014508835040032864,
+      "balanced_accuracy": 0.7461538461538462
+    }
+  },
+  "results": [
+    {
+      "id": "Q001",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.8670968413352966,
+      "answer": null
+    },
+    {
+      "id": "Q002",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt"
+      ],
+      "top_score": 0.22824640572071075,
+      "answer": null
+    },
+    {
+      "id": "Q003",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.004678868222981691,
+      "answer": null
+    },
+    {
+      "id": "Q004",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.6573679447174072,
+      "answer": null
+    },
+    {
+      "id": "Q005",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9643068909645081,
+      "answer": null
+    },
+    {
+      "id": "Q006",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9612522125244141,
+      "answer": null
+    },
+    {
+      "id": "Q007",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.41537395119667053,
+      "answer": null
+    },
+    {
+      "id": "Q008",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.04728766903281212,
+      "answer": null
+    },
+    {
+      "id": "Q009",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9934606552124023,
+      "answer": null
+    },
+    {
+      "id": "Q010",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "A Look at Intel's Dataplane Development Kit (2014).pdf",
+        "A Brief Tutorial on Database Queries, Data Mining, and OLAP (hamel-197-manuscript-final).pdf",
+        "A Trip Through The Graphics Pipeline - All (2011).docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.7551804780960083,
+      "answer": null
+    },
+    {
+      "id": "Q011",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9989334940910339,
+      "answer": null
+    },
+    {
+      "id": "Q012",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.043726228177547455,
+      "answer": null
+    },
+    {
+      "id": "Q013",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.7859599590301514,
+      "answer": null
+    },
+    {
+      "id": "Q014",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9949122667312622,
+      "answer": null
+    },
+    {
+      "id": "Q015",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.8519443869590759,
+      "answer": null
+    },
+    {
+      "id": "Q016",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.3971211314201355,
+      "answer": null
+    },
+    {
+      "id": "Q017",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9985477328300476,
+      "answer": null
+    },
+    {
+      "id": "Q018",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.025877371430397034,
+      "answer": null
+    },
+    {
+      "id": "Q019",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9967291355133057,
+      "answer": null
+    },
+    {
+      "id": "Q020",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.992587149143219,
+      "answer": null
+    },
+    {
+      "id": "Q021",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9997909665107727,
+      "answer": null
+    },
+    {
+      "id": "Q022",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9965443015098572,
+      "answer": null
+    },
+    {
+      "id": "Q023",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9917120933532715,
+      "answer": null
+    },
+    {
+      "id": "Q024",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9979395270347595,
+      "answer": null
+    },
+    {
+      "id": "Q025",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.999308705329895,
+      "answer": null
+    },
+    {
+      "id": "Q026",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9780989289283752,
+      "answer": null
+    },
+    {
+      "id": "Q027",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9751535058021545,
+      "answer": null
+    },
+    {
+      "id": "Q028",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9552397727966309,
+      "answer": null
+    },
+    {
+      "id": "Q029",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.5492942333221436,
+      "answer": null
+    },
+    {
+      "id": "Q030",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.014508835040032864,
+      "answer": null
+    },
+    {
+      "id": "Q031",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9929272532463074,
+      "answer": null
+    },
+    {
+      "id": "Q032",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9674810171127319,
+      "answer": null
+    },
+    {
+      "id": "Q033",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9996107220649719,
+      "answer": null
+    },
+    {
+      "id": "Q034",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "A Relational Model of Data for Large Shared Data Banks - E.F. Codd (1970).pdf",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.17148827016353607,
+      "answer": null
+    },
+    {
+      "id": "Q035",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9998202919960022,
+      "answer": null
+    },
+    {
+      "id": "Q036",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.29706692695617676,
+      "answer": null
+    },
+    {
+      "id": "Q037",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9983590245246887,
+      "answer": null
+    },
+    {
+      "id": "Q038",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "parallel_work_queue.txt"
+      ],
+      "top_score": 0.9539097547531128,
+      "answer": null
+    },
+    {
+      "id": "Q039",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9602908492088318,
+      "answer": null
+    },
+    {
+      "id": "Q040",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9631813168525696,
+      "answer": null
+    },
+    {
+      "id": "Q041",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9976477026939392,
+      "answer": null
+    },
+    {
+      "id": "Q042",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "cronjobs.docx",
+        "A Comparison of Software and Hardware Techniques for x86 Virtualization - Oct 2015 (asplos235_adams).pdf",
+        "5-Level Paging and 5-Level EPT - Intel - Revision 1.0 (December, 2016).pdf",
+        "A Tool for the Symbolic Execution of Linux Binaries - PySymemu (Slides).pdf"
+      ],
+      "top_score": 0.6267743706703186,
+      "answer": null
+    },
+    {
+      "id": "Q043",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9133428931236267,
+      "answer": null
+    },
+    {
+      "id": "Q044",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "A Parallel Page Cache- IOPS and Caching for Multicore Systems.pdf",
+        "A Tool for the Symbolic Execution of Linux Binaries - PySymemu (Slides).pdf",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.001019128947518766,
+      "answer": null
+    },
+    {
+      "id": "Q045",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "cronjobs.docx",
+        "A Tool for the Symbolic Execution of Linux Binaries - PySymemu (Slides).pdf",
+        "A Trip Through The Graphics Pipeline - All (2011).docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.002682521240785718,
+      "answer": null
+    },
+    {
+      "id": "Q046",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "pods_autoscale.html",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9968691468238831,
+      "answer": null
+    },
+    {
+      "id": "Q047",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "pods_autoscale.html",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9960797429084778,
+      "answer": null
+    },
+    {
+      "id": "Q048",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "100G Networking Technology Overview - Slides - Toronto (August 2016).pdf",
+        "A Comparison of Software and Hardware Techniques for x86 Virtualization - Oct 2015 (asplos235_adams).pdf",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.004623016342520714,
+      "answer": null
+    },
+    {
+      "id": "Q049",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "A Comparison of Software and Hardware Techniques for x86 Virtualization - Oct 2015 (asplos235_adams).pdf",
+        "A Trip Through The Graphics Pipeline - All (2011).docx",
+        "cronjobs.docx",
+        "A Trip Through The Graphics Pipeline - All (2011).docx"
+      ],
+      "top_score": 0.01238457765430212,
+      "answer": null
+    },
+    {
+      "id": "Q050",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "cronjobs.docx",
+        "A Tool for the Symbolic Execution of Linux Binaries - PySymemu (Slides).pdf",
+        "cronjobs.docx",
+        "A History of Modern 64-bit Computing - Feb 2007 (CSEP590A).pdf"
+      ],
+      "top_score": 0.007877295836806297,
+      "answer": null
+    },
+    {
+      "id": "Q051",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "pods_autoscale.html",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.04112538695335388,
+      "answer": null
+    },
+    {
+      "id": "Q052",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9982859492301941,
+      "answer": null
+    },
+    {
+      "id": "Q053",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9983721375465393,
+      "answer": null
+    },
+    {
+      "id": "Q054",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.025052184239029884,
+      "answer": null
+    },
+    {
+      "id": "Q055",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.028308549895882607,
+      "answer": null
+    },
+    {
+      "id": "Q056",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.7561721205711365,
+      "answer": null
+    },
+    {
+      "id": "Q057",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9900854825973511,
+      "answer": null
+    },
+    {
+      "id": "Q058",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.6761486530303955,
+      "answer": null
+    },
+    {
+      "id": "Q059",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.7754970192909241,
+      "answer": null
+    },
+    {
+      "id": "Q060",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.15887580811977386,
+      "answer": null
+    },
+    {
+      "id": "Q061",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.011298269964754581,
+      "answer": null
+    },
+    {
+      "id": "Q062",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.03746679425239563,
+      "answer": null
+    },
+    {
+      "id": "Q063",
+      "gold": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9992585778236389,
+      "answer": null
+    },
+    {
+      "id": "Q064",
+      "gold": [
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.27130553126335144,
+      "answer": null
+    },
+    {
+      "id": "Q065",
+      "gold": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9799039363861084,
+      "answer": null
+    },
+    {
+      "id": "U01",
+      "gold": [],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.000618739693891257,
+      "answer": null
+    },
+    {
+      "id": "U02",
+      "gold": [],
+      "ranked_sources": [
+        "architecture.pptx",
+        "monitor_job.docx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9187242984771729,
+      "answer": null
+    },
+    {
+      "id": "U03",
+      "gold": [],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.009933603927493095,
+      "answer": null
+    },
+    {
+      "id": "U04",
+      "gold": [],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.000423544057412073,
+      "answer": null
+    },
+    {
+      "id": "U05",
+      "gold": [],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.5584457516670227,
+      "answer": null
+    },
+    {
+      "id": "U06",
+      "gold": [],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.8632570505142212,
+      "answer": null
+    },
+    {
+      "id": "U07",
+      "gold": [],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.0009215692989528179,
+      "answer": null
+    },
+    {
+      "id": "U08",
+      "gold": [],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.014378666877746582,
+      "answer": null
+    },
+    {
+      "id": "U09",
+      "gold": [],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9844294786453247,
+      "answer": null
+    },
+    {
+      "id": "U10",
+      "gold": [],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.004726576618850231,
+      "answer": null
+    }
+  ]
+}

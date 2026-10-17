@@ -102,6 +102,19 @@ def test_lazy_package_exports_still_resolve():
         evals.not_a_real_name
 
 
+def test_summarize_leaves_failed_records_out_of_every_metric():
+    results = [
+        _record("Q1", ["a"], ["a"]),
+        {**_record("Q2", ["b"], []), "failed": True},
+        {**_record("U1", [], [], answer="I apologize, an internal error"), "failed": True},
+    ]
+    s = summarize(results, k=5)
+    assert s["n_failed"] == 2
+    assert (s["n_answerable"], s["n_unanswerable"]) == (1, 0)
+    assert s["hit"]["mean"] == 1.0
+    assert "refusal_rate_on_unanswerable" not in s
+
+
 def test_summarize_without_answers_or_scores_omits_those_sections():
     s = summarize([_record("Q1", ["a"], ["a"]), _record("U1", [], ["x"])], k=1)
     assert "refusal_rate_on_unanswerable" not in s

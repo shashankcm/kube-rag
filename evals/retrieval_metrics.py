@@ -83,11 +83,19 @@ def summarize(results: list[dict], k: int) -> dict:
       {"id", "gold": [sources] (empty for unanswerable), "ranked_sources": [...],
        "top_score": float | None, "answer": str | None}
     """
-    answerable = [r for r in results if r["gold"]]
-    unanswerable = [r for r in results if not r["gold"]]
+    # A failed request (for example a rate-limited LLM call) says nothing about retrieval
+    # quality, so it is counted separately and kept out of every metric.
+    usable = [r for r in results if not r.get("failed")]
+    answerable = [r for r in usable if r["gold"]]
+    unanswerable = [r for r in usable if not r["gold"]]
 
     per_question = [question_metrics(r["ranked_sources"], r["gold"], k) for r in answerable]
-    summary = {"k": k, "n_answerable": len(answerable), "n_unanswerable": len(unanswerable)}
+    summary = {
+        "k": k,
+        "n_answerable": len(answerable),
+        "n_unanswerable": len(unanswerable),
+        "n_failed": len(results) - len(usable),
+    }
     for name in ("hit", "recall", "precision", "mrr"):
         values = [m[name] for m in per_question]
         low, high = bootstrap_ci(values)

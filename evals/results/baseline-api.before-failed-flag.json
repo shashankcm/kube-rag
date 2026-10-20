@@ -1,0 +1,995 @@
+{
+  "label": "baseline-api",
+  "created": "2026-10-17T00:57:17+00:00",
+  "config": {
+    "mode": "api",
+    "k": 5,
+    "candidates": 15,
+    "rerank": true
+  },
+  "summary": {
+    "k": 5,
+    "n_answerable": 65,
+    "n_unanswerable": 10,
+    "hit": {
+      "mean": 0.676923076923077,
+      "ci95": [
+        0.5692307692307692,
+        0.7846153846153846
+      ]
+    },
+    "recall": {
+      "mean": 0.676923076923077,
+      "ci95": [
+        0.5692307692307692,
+        0.7846153846153846
+      ]
+    },
+    "precision": {
+      "mean": 0.36,
+      "ci95": [
+        0.27692307692307694,
+        0.4430769230769231
+      ]
+    },
+    "mrr": {
+      "mean": 0.6384615384615384,
+      "ci95": [
+        0.5230769230769231,
+        0.7461538461538462
+      ]
+    },
+    "refusal_rate_on_unanswerable": {
+      "mean": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "n": 10
+    }
+  },
+  "results": [
+    {
+      "id": "Q001",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9731186628341675,
+      "answer": "The example uses **Redis** as the storage service to hold the work queue."
+    },
+    {
+      "id": "Q002",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9492860436439514,
+      "answer": "The queue is named **`job2`** (as set in the example with `RedisWQ(name=\"job2\", \u2026)`)."
+    },
+    {
+      "id": "Q003",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt"
+      ],
+      "top_score": 0.029397031292319298,
+      "answer": "The following fruits are pushed onto the **job2** queue:\n\n- apple  \n- banana  \n- cherry  \n- date  \n- fig  \n- grape  \n- lemon  \n- melon  \n- orange"
+    },
+    {
+      "id": "Q004",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.6573679447174072,
+      "answer": "Workers signal that the queue is empty by simply exiting with a successful (zero\u2011exit\u2011code) status. When a pod finishes processing items and the `q.empty()` check becomes true, it exits, and that successful termination indicates the queue has been drained."
+    },
+    {
+      "id": "Q005",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9838972091674805,
+      "answer": "I don\u2019t know."
+    },
+    {
+      "id": "Q006",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.8113371729850769,
+      "answer": "The command shown in the context is:\n\n```bash\nkubectl wait --for=condition=complete job/{{ include \"chart.fullname\" . }}-data-processor --timeout=300s\n```"
+    },
+    {
+      "id": "Q007",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9780369400978088,
+      "answer": "The guide recommends using a **ReplicaSet** for continuously\u2011running background processing work."
+    },
+    {
+      "id": "Q008",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.05011529102921486,
+      "answer": "The worker leases each queue item for **10\u202fseconds** (as specified by `lease_secs=10` in the `q.lease` call)."
+    },
+    {
+      "id": "Q009",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9987731575965881,
+      "answer": "The guide compares **three** tools for programmatic job management:\n\n1. **Databricks CLI**  \n2. **Databricks SDKs** (Python, Java, Go, R)  \n3. **Databricks REST API**"
+    },
+    {
+      "id": "Q010",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "A Look at Intel's Dataplane Development Kit (2014).pdf",
+        "A Brief Tutorial on Database Queries, Data Mining, and OLAP (hamel-197-manuscript-final).pdf",
+        "A Probabilistic Theory of Deep Learning.pptx",
+        "A Framework for Building Extensible C++ Class Libraries - 1993.pdf"
+      ],
+      "top_score": 0.8789470195770264,
+      "answer": "The Databricks SDKs are available for **Python, Java, Go, and R**."
+    },
+    {
+      "id": "Q011",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9567499160766602,
+      "answer": "The `databricks jobs get` CLI command maps to the Databricks REST API endpoint:\n\n**GET\u202f/api/2.2/jobs/get**."
+    },
+    {
+      "id": "Q012",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9727487564086914,
+      "answer": "There are **three** ways to run a Databricks job from the command line."
+    },
+    {
+      "id": "Q013",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.03412822633981705,
+      "answer": "When you use **`databricks jobs submit`**, the command sends a job definition directly to the Jobs service and immediately starts a run.\u202fThe job **is not saved** in the workspace \u2013 it doesn\u2019t appear in the Jobs UI and isn\u2019t persisted as a reusable job object.\u202fIt executes once, and once the run finishes the job definition disappears."
+    },
+    {
+      "id": "Q014",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9979966282844543,
+      "answer": "The CLI command to delete a Databricks job is:\n\n```bash\ndatabricks jobs delete <job-id>\n```"
+    },
+    {
+      "id": "Q015",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.29091551899909973,
+      "answer": "Databricks recommends using **Databricks Asset Bundles** or the **Databricks Terraform provider** to programmatically manage jobs as part of CI/CD."
+    },
+    {
+      "id": "Q016",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.5873509049415588,
+      "answer": "The example assumes that the following environment variables are set:\n\n- **DATABRICKS_HOST**\n- **DATABRICKS_TOKEN**"
+    },
+    {
+      "id": "Q017",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9986321330070496,
+      "answer": "The tutorial uses **Minikube** to run a local Kubernetes cluster."
+    },
+    {
+      "id": "Q018",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9960198998451233,
+      "answer": "A backoffLimit of\u202f4 means that if **hello\u2011job** fails, Kubernetes will retry the job up to\u202f4\u202ftimes (i.e., it can attempt the pod\u202f4\u202fadditional times) before giving up and marking the job as failed."
+    },
+    {
+      "id": "Q019",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9931417107582092,
+      "answer": "The **COMPLETIONS** column displays the number of pods that have finished successfully out of the total number of completions the job is configured to achieve (i.e.,\u202f*completed pods\u202f/\u202fdesired completions*)."
+    },
+    {
+      "id": "Q020",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9941668510437012,
+      "answer": "According to the tutorial, a Kubernetes job can be in one of three statuses:\n\n- **Active** \u2013 the job is still running.  \n- **Completed** \u2013 the job has finished successfully.  \n- **Failed** \u2013 the job has failed after reaching its backoff limit."
+    },
+    {
+      "id": "Q021",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9995728135108948,
+      "answer": "Use\u202f`kubectl logs`\u202fwith the **\u2011f** (follow) flag on the pod that the job created.\n\n1. Get the pod name for the job (e.g., `kubectl get pods -l job-name=<job\u2011name>`).  \n2. Run:\n\n```bash\nkubectl logs -f <pod-name>\n```\n\nThe `-f` option streams the pod\u2019s log output in real time, letting you watch the job\u2019s progress as it runs."
+    },
+    {
+      "id": "Q022",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9993233680725098,
+      "answer": "Use a label selector for the job name:\n\n```bash\nkubectl get pods -l job-name=hello-job\n```\n\nThis command lists only the pods whose `job-name` label matches **hello\u2011job**, showing just the pods created by that job."
+    },
+    {
+      "id": "Q023",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9977527260780334,
+      "answer": "Use\u202fkubectl\u202fwith the JSONPath output option:\n\n```bash\nkubectl get job labeled-job -o jsonpath='{.status.succeeded}'\n```"
+    },
+    {
+      "id": "Q024",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "architecture.pptx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9996485710144043,
+      "answer": "Use a label selector that includes both key\u2011value pairs, separating them with commas. For example:\n\n```bash\nkubectl get jobs -l department=engineering,environment=training\n```\n\nThis command returns only the jobs that have **both** the `department=engineering` and `environment=training` labels."
+    },
+    {
+      "id": "Q025",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9984732270240784,
+      "answer": "The **simple\u2011cronjob** is defined with:\n\n```yaml\nspec:\n  schedule: \"*/1 * * * *\"\n```\n\nSo it is scheduled to run **every minute**."
+    },
+    {
+      "id": "Q026",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9992148876190186,
+      "answer": "Yes.\u202fKubernetes jobs retain the logs of their pods even after the job finishes, so you can still retrieve them with:\n\n```bash\nkubectl logs <pod-name>\n```\n\nJust locate the pod that belonged to the completed job (e.g., via `kubectl get pods -l job-name=<job-name>`) and run the `kubectl logs` command. The logs will be displayed just as they were while the job was running."
+    },
+    {
+      "id": "Q027",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "monitor_job.docx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9776861667633057,
+      "answer": "The architecture overview deck is based on **Kubernetes version\u202f1.8**."
+    },
+    {
+      "id": "Q028",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "monitor_job.docx",
+        "pods_autoscale.html",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.18032382428646088,
+      "answer": "The deck presents Kubernetes as a **loosely\u2011coupled collection of components** that together form the \u201cLinux kernel of distributed systems.\u201d  \n\n- **Control\u2011plane (Masters)** \u2013 The masters provide the primary control plane. They run the API server, scheduler, controller manager (and optionally cloud\u2011controller\u2011manager and etcd) and are responsible for storing cluster state and integrating with cloud providers.  \n\n- **Worker nodes** \u2013 The nodes are the \u201cworkers\u201d that run a minimal agent to manage the node itself and execute the workloads the master schedules.  \n\nOverall, the architecture is described as an abstraction layer that hides the underlying hardware of the nodes and offers a uniform interface for deploying, maintaining, scaling, and consuming shared resources across the cluster."
+    },
+    {
+      "id": "Q029",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.16726090013980865,
+      "answer": "The design of Kubernetes was informed by Google\u2019s internal systems **Borg** and **Omega**."
+    },
+    {
+      "id": "Q030",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9988659620285034,
+      "answer": "The deck lists the following master\u2011plane components:\n\n- **kube\u2011apiserver**  \n- **etcd**  \n- **kube\u2011controller\u2011manager**  \n- **cloud\u2011controller\u2011manager**  \n- **kube\u2011scheduler**"
+    },
+    {
+      "id": "Q031",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9974017143249512,
+      "answer": "etcd is the cluster\u2019s datastore. It provides a strong, consistent, highly\u2011available key\u2011value store that persists the cluster\u2019s state."
+    },
+    {
+      "id": "Q032",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9945153594017029,
+      "answer": "kube\u2011proxy manages the network rules on each node and performs connection forwarding or load\u2011balancing for Kubernetes cluster services. It operates in one of several proxy modes (userspace, iptables, or ipvs\u202f\u2013\u202falpha in v1.8)."
+    },
+    {
+      "id": "Q033",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9946029782295227,
+      "answer": "The fundamental rules state that Kubernetes networking works **without any NAT**:\n\n- **Pods \u2194 Pods:** All Pods can talk to every other Pod directly, no NAT is involved.  \n- **Nodes \u2194 Pods:** All Nodes can communicate with all Pods (and Pods with Nodes) directly, also without NAT.  \n- **Pod IP consistency:** The IP address a Pod sees for itself is exactly the same IP address that other Pods and Nodes see for that Pod.  \n\nIn short, the core networking model guarantees direct, NAT\u2011free communication between Pods and between Pods and Nodes."
+    },
+    {
+      "id": "Q034",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.24506057798862457,
+      "answer": "I don't know."
+    },
+    {
+      "id": "Q035",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9974103569984436,
+      "answer": "The **ClusterIP** service type exposes a service only on a strictly cluster\u2011internal IP."
+    },
+    {
+      "id": "Q036",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.348904013633728,
+      "answer": "A DaemonSet ensures that every node (or every node that meets specified criteria) runs an instance of the defined Pod. It\u2019s typically used for cluster\u2011wide services such as log forwarding, health monitoring, or other agents that must be present on each node."
+    },
+    {
+      "id": "Q037",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "monitor_job.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9623777270317078,
+      "answer": "StatefulSet pods receive unique ordinal names that follow the pattern:\n\n```\n<statefulset\u2011name>-<ordinal\u2011index>\n```\n\nFor example, if the StatefulSet is named `my\u2011app`, its pods will be named `my\u2011app-0`, `my\u2011app-1`, `my\u2011app-2`, and so on."
+    },
+    {
+      "id": "Q038",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt"
+      ],
+      "top_score": 0.9235286116600037,
+      "answer": "The Job fields are:\n\n- **`spec.completions`** \u2013 defines how many Pods must finish successfully (the total number of pod executions required).  \n- **`spec.parallelism`** \u2013 defines the maximum number of Pods that may run at the same time (the level of parallelism)."
+    },
+    {
+      "id": "Q039",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9930358529090881,
+      "answer": "I don't know."
+    },
+    {
+      "id": "Q040",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9696827530860901,
+      "answer": "Secrets are functionally the same kind of object as ConfigMaps\u2014both can be mounted as files, exposed as environment variables, or passed as command\u2011line arguments.  \nThe key differences are:\n\n* **Data encoding** \u2013 Secret data is stored **base64\u2011encoded**, whereas ConfigMap data is stored in plain text.  \n* **Encryption at rest** \u2013 Secrets can be **encrypted at rest** (when the cluster is configured for it), providing an extra layer of protection for sensitive information.  \n\nThus, while both serve to externalize configuration, Secrets are intended for sensitive data and add encoding\u202f+\u202foptional encryption, whereas ConfigMaps are for non\u2011sensitive configuration."
+    },
+    {
+      "id": "Q041",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9981667995452881,
+      "answer": "The pause container is created by the kubelet as the Pod\u2019s \u201cparent\u201d container.\u202fIt holds the Pod\u2019s network namespace, and the CNI plumbing attaches a veth pair and assigns an IP to this pause container. All other containers in the Pod share the pause container\u2019s network namespace, so the pause container provides the stable networking and namespace foundation for the Pod."
+    },
+    {
+      "id": "Q042",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9992647767066956,
+      "answer": "The Metrics Server must be installed in the cluster before testing HPA and VPA."
+    },
+    {
+      "id": "Q043",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9975384473800659,
+      "answer": "The Horizontal Pod Autoscaler (HPA) automatically adjusts the number of pods for a Deployment, ReplicaSet, or other controller based on observed metrics (such as CPU utilization or custom metrics). It continuously monitors those metrics, compares them to the thresholds you define, and then scales the pod count up when usage is high and scales it down when usage drops, thereby providing elastic, cost\u2011efficient performance for your workloads."
+    },
+    {
+      "id": "Q044",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q045",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "monitor_job.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.992324709892273,
+      "answer": "The load\u2011generating command used in the HPA test is:\n\n```bash\nkubectl run -i --tty load-generator --rm \\\n  --image=busybox:1.28 --restart=Never \\\n  -- /bin/sh -c \"while sleep 0.01; do wget -q -O- http://nginx-svc; done\"\n```"
+    },
+    {
+      "id": "Q046",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "pods_autoscale.html",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9983258843421936,
+      "answer": "The Vertical\u202fPod\u202fAutoscaler (VPA) adjusts the **CPU and memory resource requests and limits** of the pods it manages."
+    },
+    {
+      "id": "Q047",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "pods_autoscale.html",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9993840456008911,
+      "answer": "The installation script is **`./hack/vpa-up.sh`** (run from the cloned\u202f`autoscaler`\u202fdirectory)."
+    },
+    {
+      "id": "Q048",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q049",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.6231725215911865,
+      "answer": "**VPA\u202fupdateMode\u202f`Off`** \u2013\u202fWhen a Vertical\u202fPod\u202fAutoscaler is set to `Off`, it does **not** modify the pod\u2019s resource requests or limits. The VPA will still monitor usage and generate recommendation objects, but it will never apply those recommendations automatically (or trigger pod restarts). In short, `Off` makes the VPA act as a read\u2011only advisor."
+    },
+    {
+      "id": "Q050",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q051",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q052",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q053",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q054",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q055",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q056",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q057",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q058",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q059",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q060",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q061",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q062",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q063",
+      "gold": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q064",
+      "gold": [
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "Q065",
+      "gold": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "U01",
+      "gold": [],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "U02",
+      "gold": [],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "U03",
+      "gold": [],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "U04",
+      "gold": [],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "U05",
+      "gold": [],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "U06",
+      "gold": [],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "U07",
+      "gold": [],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "U08",
+      "gold": [],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "U09",
+      "gold": [],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    },
+    {
+      "id": "U10",
+      "gold": [],
+      "ranked_sources": [],
+      "top_score": null,
+      "answer": "I apologize, but I encountered an internal error while processing your request. Please try again later."
+    }
+  ]
+}

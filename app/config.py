@@ -33,6 +33,9 @@ class Settings:
     # rewrite only when there is earlier conversation (where it resolves "what about its limits?").
     # "always": always search with the planner's rewrite (the original behaviour).
     QUERY_REWRITE = os.getenv("QUERY_REWRITE", "followups")
+    # Repair known defects in the planner's rewrite (control characters, repeated text, site: operators).
+    # Turn off only to reproduce the old behaviour for an experiment.
+    CLEAN_REWRITE = os.getenv("CLEAN_REWRITE", "true").lower() != "false"
 
     # --- OBSERVABILITY ---
     LANGSMITH_TRACING = os.getenv("LANGSMITH_TRACING", "true")

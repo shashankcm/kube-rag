@@ -259,25 +259,43 @@ def test_agent_mode_marks_a_planner_error_as_failed(monkeypatch):
     assert searched == []
 
 
-def test_run_in_agent_mode_applies_the_rewrite_setting_and_uses_run_agent(monkeypatch):
+def test_run_in_agent_mode_applies_the_rewrite_settings_and_uses_run_agent(monkeypatch):
     from app.config import settings
 
     monkeypatch.setattr(settings, "QUERY_REWRITE", "followups")
+    monkeypatch.setattr(settings, "CLEAN_REWRITE", True)
     seen = []
 
     def fake_agent(question):
-        seen.append(settings.QUERY_REWRITE)
+        seen.append((settings.QUERY_REWRITE, settings.CLEAN_REWRITE))
         return _good()
 
     monkeypatch.setattr(runner, "run_agent", fake_agent)
-    args = SimpleNamespace(mode="agent", k=5, no_rerank=False, label="t", url="", rewrite="always")
+    args = SimpleNamespace(mode="agent", k=5, no_rerank=False, label="t", url="", rewrite="always", no_clean_rewrite=True)
 
     report = runner.run(args)
 
-    assert set(seen) == {"always"}
+    assert set(seen) == {("always", False)}
     assert report["config"]["rewrite"] == "always"
+    assert report["config"]["clean_rewrite"] is False
     assert report["config"]["mode"] == "agent"
     assert report["complete"] is True
+
+
+def test_agent_mode_searches_with_a_cleaned_rewrite_unless_told_not_to(monkeypatch):
+    from app.config import settings
+
+    defective = {"current_query": "Kubernetes Job spec fields\x00", "plan": ["Intent: Technical"]}
+    monkeypatch.setattr(settings, "QUERY_REWRITE", "always")
+
+    searched = []
+    _stub_agent(monkeypatch, defective, searched)
+    monkeypatch.setattr(settings, "CLEAN_REWRITE", True)
+    runner.run_agent("question")
+    monkeypatch.setattr(settings, "CLEAN_REWRITE", False)
+    runner.run_agent("question")
+
+    assert searched == ["Kubernetes Job spec fields", "Kubernetes Job spec fields\x00"]
 
 
 def test_report_is_saved_after_every_question(monkeypatch, tmp_path):

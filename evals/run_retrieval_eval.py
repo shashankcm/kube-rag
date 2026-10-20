@@ -109,7 +109,7 @@ def run_agent(question: str) -> dict:
         return {"ranked_sources": [], "top_score": None, "answer": None, "failed": False,
                 "search_term": None, "intent": "conversational"}
 
-    query_used = choose_search_query(state, settings.QUERY_REWRITE)
+    query_used = choose_search_query(state, settings.QUERY_REWRITE, settings.CLEAN_REWRITE)
     state.update(retrieve_node(state))
     citations = state.get("citations") or []
     scores = [c["score"] for c in citations if c.get("score") is not None]
@@ -174,6 +174,7 @@ def _config(args) -> dict:
     if args.mode == "agent":
         config["rerank"] = True  # the agent always reranks, and returns its top 5
         config["rewrite"] = args.rewrite
+        config["clean_rewrite"] = not getattr(args, "no_clean_rewrite", False)
     if args.mode in ("retriever", "agent"):
         from app.config import settings
 
@@ -209,6 +210,7 @@ def run(args, out_path: Path | None = None, previous: list[dict] | None = None) 
         from app.config import settings
 
         settings.QUERY_REWRITE = args.rewrite  # read by the retriever node at call time
+        settings.CLEAN_REWRITE = not getattr(args, "no_clean_rewrite", False)
     by_id = {r["id"]: r for r in (previous or []) if not r.get("failed")}
     consecutive_failures = 0
     stopped_early = False
@@ -246,6 +248,8 @@ def main():
     parser.add_argument("--rewrite", choices=["always", "followups"], default="followups",
                         help="agent mode: always search with the planner's rewrite (old) or only on follow-ups (new)")
     parser.add_argument("--k", type=int, default=5, help="rank cut-off for the metrics")
+    parser.add_argument("--no-clean-rewrite", action="store_true",
+                        help="agent mode: do not repair defects in the planner's rewrite (old behaviour)")
     parser.add_argument("--no-rerank", action="store_true", help="retriever mode: skip FlashRank")
     parser.add_argument("--url", default="http://localhost:8000", help="api mode: backend base URL")
     parser.add_argument("--resume", action="store_true", help="reuse non-failed results from an earlier run with this label")

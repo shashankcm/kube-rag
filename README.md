@@ -1,6 +1,10 @@
 # kube-rag
 
+![CI](https://github.com/shashankcm/kube-rag/actions/workflows/ci.yml/badge.svg)
+
 Enterprise-grade agentic RAG over [Kubernetes](https://kubernetes.io/) documentation, with input guardrails, an LLM gateway, local reranking, full observability and an automated evaluation suite.
+
+**What makes this repo worth reading is the evaluation.** Retrieval is scored on a 65-question golden set with no LLM judge, every label is backed by a quote that a test checks against the source, and each design change is measured before and after with paired confidence intervals. See [Results](#results).
 
 ## Features
 
@@ -164,9 +168,59 @@ curl -X POST http://localhost:8000/query \
 
 The response contains `question`, `answer`, `thought_process` (the steps taken), `status` and `sources`. Reuse the same `thread_id` to keep conversation memory. If the pipeline fails, the endpoint still returns HTTP 200 with `"status": "error"`.
 
+## Results
+
+Retrieval quality on a **65-question golden set** over six documents, mixed with about 60 unrelated PDFs, `.docx` and `.pptx` files that act as distractors. No LLM judge is involved. A question counts as a hit when a chunk from a gold source file is in the top 5. Every gold label is backed by a verbatim quote from the source, and a test checks each quote against the parsed text. Intervals are 95% bootstrap intervals over questions.
+
+| Configuration | hit@5 | MRR@5 |
+|---|---|---|
+| Retriever only, with FlashRank reranker | 1.000 | 0.951 (0.910 to 0.985) |
+| Retriever only, no reranker | 0.923 (0.846 to 0.985) | 0.845 (0.765 to 0.918) |
+| Planner + retriever, searches with the user's own words on a first question (current) | 1.000 | 0.951 (0.910 to 0.985) |
+| Planner + retriever, always searches with the planner's rewrite (previous behaviour) | 0.969 (0.923 to 1.000) | 0.862 (0.800 to 0.923) |
+| Full API: guardrails + planner + retriever + answer | 0.969 (0.923 to 1.000) | 0.869 (0.808 to 0.923) |
+
+**What the measurements say**
+
+- **The reranker helps.** Paired on the same 65 questions, FlashRank adds +0.077 hit@5 (95% CI +0.015 to +0.138) and +0.106 MRR (CI +0.026 to +0.188). It fixed 5 questions on hit@5 and broke none.
+- **The planner's query rewrite hurt.** It padded questions with generic words ("Kubernetes ... documentation"), pushing the right document from rank 1 to rank 2. Searching with the user's own words on a first question recovered +0.090 MRR (CI +0.038 to +0.144). The rewrite is still used on follow-up questions, where it resolves references.
+- **Repairing the rewrite's malformed output changed nothing.** 29 of 75 rewrites had duplicated text, stray null characters or web-search operators. Cleaning them left hit@5 unchanged on all 65 questions, so the content of the rewrite, not its formatting, was the problem.
+- **The prompt, not a score threshold, handles questions the corpus cannot answer.** 9 of 10 unanswerable questions were refused (Wilson 95% interval about 0.60 to 0.98), including three whose retrieval scores were 0.86 to 0.997. The one failure adapted an egress NetworkPolicy example into an ingress one using outside knowledge.
+
+**Limits. Read these before quoting any number.**
+
+- 65 questions, written by reading the documents, so many are close to verbatim lookups. A hit@5 of 1.000 means the set can no longer separate good from better, not that retrieval is perfect. The bootstrap interval collapses to zero width at 100%; a conservative lower bound is about 0.95 (the rule of three, 1 − 3/65).
+- Two labels (Q038, Q039) were corrected after results existed, because the retriever returned a document that also contains the answer. Each added source was checked against the text, the change is recorded in the `changelog` of `evals/golden_v2.json`, and every saved run was rescored with `evals.rescore`. A search of the rest of the corpus found no further missing sources.
+- Single-turn questions only. Whether keeping the planner's rewrite for follow-ups helps is not measured.
+- Refusal is measured on 10 questions, so the interval is wide.
+- Answer quality (RAGAS faithfulness and relevancy) exists in the dashboard but has not been run on this golden set.
+- The first full API run failed on 28 of 75 questions when Groq's daily token limit on the guardrail model was reached. The runner now records failures separately, retries, stops after repeated failures, and resumes; the reported API run is the completed one.
+
+**Reproduce**
+
+```bash
+python -m evals.run_retrieval_eval --label baseline-dense --mode retriever              # needs Qdrant and the embedding model, no LLM
+python -m evals.run_retrieval_eval --label agent-followups --mode agent                 # real planner + retriever, no guardrails
+python -m evals.run_retrieval_eval --label baseline-api --mode api [--resume]           # full path; limited by LLM quotas
+python -m evals.compare baseline-dense baseline-dense-norerank                          # paired difference with 95% interval
+python -m evals.rescore baseline-dense --write                                          # rescore after a label change
+python -m evals.build_golden_v2                                                         # rebuild and verify the golden set
+```
+
+Saved runs are in `evals/results/`; the design notes are in [`DOCS/`](DOCS/).
+
+## Tests and CI
+
+```bash
+pip install -r requirements-ci.txt
+python -m pytest tests -q
+```
+
+The tests stub Qdrant, the reranker, the LLM gateway and the planner, so they need no API keys, no `.env` and no PyTorch. The same command runs in GitHub Actions on every pull request. CI cannot re-run retrieval, so it also checks that the committed results use the current gold labels and stay above a conservative floor.
+
 ## Evaluation
 
-The eval dashboard runs the golden dataset (15 RAG Q&A samples and 6 guardrail samples) against the live backend and scores it:
+The eval dashboard runs the original golden dataset (15 RAG Q&A samples and 6 guardrail samples) against the live backend and scores it with RAGAS. The retrieval results above use the newer `evals/golden_v2.json` set instead.
 
 ```bash
 streamlit run evals/app.py

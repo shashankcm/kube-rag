@@ -1,0 +1,1466 @@
+{
+  "label": "agent-followups",
+  "created": "2026-10-20T14:31:56+00:00",
+  "complete": true,
+  "stopped_early": false,
+  "config": {
+    "mode": "agent",
+    "k": 5,
+    "candidates": 15,
+    "rerank": true,
+    "rewrite": "followups",
+    "embedding_model": "sentence-transformers",
+    "collection": "enterprise_kub_rag"
+  },
+  "summary": {
+    "k": 5,
+    "n_answerable": 65,
+    "n_unanswerable": 10,
+    "n_failed": 0,
+    "hit": {
+      "mean": 0.9846153846153847,
+      "ci95": [
+        0.9538461538461539,
+        1.0
+      ]
+    },
+    "recall": {
+      "mean": 0.9794871794871794,
+      "ci95": [
+        0.9435897435897436,
+        1.0
+      ]
+    },
+    "precision": {
+      "mean": 0.5538461538461539,
+      "ci95": [
+        0.47692307692307695,
+        0.6276923076923077
+      ]
+    },
+    "mrr": {
+      "mean": 0.9358974358974359,
+      "ci95": [
+        0.8846153846153846,
+        0.9769230769230769
+      ]
+    },
+    "suggested_score_threshold": {
+      "threshold": 0.014508835040032864,
+      "balanced_accuracy": 0.7461538461538462
+    },
+    "n_missing": 0
+  },
+  "results": [
+    {
+      "id": "Q001",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.8670968413352966,
+      "answer": null,
+      "failed": false,
+      "search_term": "work queue example storage service used to hold the queue",
+      "query_used": "What storage service does the work queue example use to hold the queue?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q002",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt"
+      ],
+      "top_score": 0.22824640572071075,
+      "answer": null,
+      "failed": false,
+      "search_term": "work queue example task queue namework queue example task queue name",
+      "query_used": "What is the name of the queue that is filled with tasks in the work queue example?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q003",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.004678868222981691,
+      "answer": null,
+      "failed": false,
+      "search_term": "fruits pushed onto job2 queue",
+      "query_used": "Which fruits are pushed onto the job2 queue?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q004",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.6573679447174072,
+      "answer": null,
+      "failed": false,
+      "search_term": "how do workers signal that the queue is empty?",
+      "query_used": "How do workers signal that the queue is empty?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q005",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9643068909645081,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes work queue Job manifest parallelism setting query",
+      "query_used": "What parallelism does the work queue Job manifest set?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q006",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9612522125244141,
+      "answer": null,
+      "failed": false,
+      "search_term": "kubectl wait command timeout 300 seconds work queue Job complete",
+      "query_used": "Which command waits up to 300 seconds for the work queue Job to complete?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q007",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.41537395119667053,
+      "answer": null,
+      "failed": false,
+      "search_term": "work queue guide continuous stream of background work",
+      "query_used": "What does the work queue guide suggest for a continuous stream of background work?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q008",
+      "gold": [
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.04728766903281212,
+      "answer": null,
+      "failed": false,
+      "search_term": "worker lease duration on queue item how long?",
+      "query_used": "How long is the lease the worker takes on a queue item?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q009",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9934606552124023,
+      "answer": null,
+      "failed": false,
+      "search_term": "Databricks guide compare tools for managing jobs programmatically",
+      "query_used": "Which three tools does the Databricks guide compare for managing jobs programmatically?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q010",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "A Look at Intel's Dataplane Development Kit (2014).pdf",
+        "A Brief Tutorial on Database Queries, Data Mining, and OLAP (hamel-197-manuscript-final).pdf",
+        "A Trip Through The Graphics Pipeline - All (2011).docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.7551804780960083,
+      "answer": null,
+      "failed": false,
+      "search_term": "Databricks SDK supported programming languages",
+      "query_used": "Which languages are the Databricks SDKs available for?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q011",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9989334940910339,
+      "answer": null,
+      "failed": false,
+      "search_term": "Databricks CLI \"jobs get\" command REST API endpoint mapping documentation query.",
+      "query_used": "Which REST API request does the command databricks jobs get map to?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q012",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.043726228177547455,
+      "answer": null,
+      "failed": false,
+      "search_term": "Databricks command line run job options",
+      "query_used": "How many ways are there to run a Databricks job from the command line?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q013",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.7859599590301514,
+      "answer": null,
+      "failed": false,
+      "search_term": "Databricks job submit command behavior after job is startedDatabricks job submit command behavior after job is started",
+      "query_used": "What happens to a Databricks job started with the submit command?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q014",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9949122667312622,
+      "answer": null,
+      "failed": false,
+      "search_term": "Databricks CLI command to delete a job",
+      "query_used": "Which CLI command deletes a Databricks job?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q015",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.8519443869590759,
+      "answer": null,
+      "failed": false,
+      "search_term": "Databricks recommended best practices for managing jobs in CI/CD pipelines",
+      "query_used": "What does Databricks recommend for managing jobs as part of CI/CD?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q016",
+      "gold": [
+        "job_management.html"
+      ],
+      "ranked_sources": [
+        "job_management.html",
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.3971211314201355,
+      "answer": null,
+      "failed": false,
+      "search_term": "Databricks REST API example environment variables requiredDatabricks REST API example required environment variablesThe user asked: \"Which environment variables does the Databricks REST API example assume are set?\" The user wants to know which environment variables are assumed to be set for the Databricks REST API example. This is a technical question about Databricks, not covered in the conversation history. According to the instructions, we should output a refined search query.Databricks REST API example required environment variablesDatabricks REST API example required environment variables",
+      "query_used": "Which environment variables does the Databricks REST API example assume are set?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q017",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9985477328300476,
+      "answer": null,
+      "failed": false,
+      "search_term": "job monitoring tutorial tool to run a local Kubernetes clusterjob monitoring tutorial tool to run a local Kubernetes cluster",
+      "query_used": "Which tool does the job monitoring tutorial use to run a local Kubernetes cluster?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q018",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.025877371430397034,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes Job backoffLimit 4 meaning for hello-jobKubernetes Job backoffLimit 4 meaning for hello-job",
+      "query_used": "What does a backoffLimit of 4 mean for hello-job?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q019",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9967291355133057,
+      "answer": null,
+      "failed": false,
+      "search_term": "kubectl get jobs COMPLETIONS column meaning",
+      "query_used": "What does the COMPLETIONS column show in kubectl get jobs?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q020",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.992587149143219,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes job statuses tutorial list of possible job status values.",
+      "query_used": "Which statuses can a Kubernetes job have according to the tutorial?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q021",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9997909665107727,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes follow job pod logs in real time using kubectl logs -f",
+      "query_used": "How do you follow a job pod's logs in real time?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q022",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9965443015098572,
+      "answer": null,
+      "failed": false,
+      "search_term": "kubectl get pods -l job-name=hello-job",
+      "query_used": "How do you list only the pods that belong to the job hello-job?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q023",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9917120933532715,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes JSONPath read succeeded pods count for a job labeled-job\u0000",
+      "query_used": "How do you read the number of succeeded pods for labeled-job with JSONPath?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q024",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9979395270347595,
+      "answer": null,
+      "failed": false,
+      "search_term": "filter jobs by multiple labels department environment kubernetes label selector",
+      "query_used": "How do you filter jobs by both the department and environment labels?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q025",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.999308705329895,
+      "answer": null,
+      "failed": false,
+      "search_term": "simple-cronjob schedule Kubernetes cronjob definition schedule field",
+      "query_used": "What schedule does simple-cronjob use?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q026",
+      "gold": [
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9780989289283752,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes read job logs after job completion kubectl logs completed job\u0000",
+      "query_used": "Can you read a job's logs after the job has completed?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q027",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9751535058021545,
+      "answer": null,
+      "failed": false,
+      "search_term": "architecture overview deck Kubernetes version Intel",
+      "query_used": "Which Kubernetes version does the architecture overview deck cover?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q028",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9552397727966309,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes architecture deck description site:intel.com OR site:github.com OR filetype:pdf \"architecture deck\" Kubernetes",
+      "query_used": "How does the architecture deck describe Kubernetes?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q029",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.5492942333221436,
+      "answer": null,
+      "failed": false,
+      "search_term": "Google systems that informed the design of Kubernetes (e.g., Borg, Omega)Google systems that informed the design of Kubernetes (e.g., Borg, Omega)",
+      "query_used": "Which Google systems informed the design of Kubernetes?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q030",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.014508835040032864,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes master components list and description.",
+      "query_used": "Which master components does the deck list?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q031",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9929272532463074,
+      "answer": null,
+      "failed": false,
+      "search_term": "etcd role in a Kubernetes cluster \u2013 what it does and why it\u2019s needed.",
+      "query_used": "What role does etcd play in the cluster?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q032",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9674810171127319,
+      "answer": null,
+      "failed": false,
+      "search_term": "kube-proxy function and role in Kubernetes architecture",
+      "query_used": "What does kube-proxy do?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q033",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9996107220649719,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes networking fundamental rules NAT site:kubernetes.io documentation",
+      "query_used": "What do the Kubernetes networking fundamental rules say about NAT?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q034",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "A Relational Model of Data for Large Shared Data Banks - E.F. Codd (1970).pdf",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.17148827016353607,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes major Service types countKubernetes major Service types count",
+      "query_used": "How many major Service types are there?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q035",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9998202919960022,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes service type that exposes only on a cluster-internal IP",
+      "query_used": "Which Service type exposes a service only on a cluster-internal IP?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q036",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.29706692695617676,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes DaemonSet purpose and use casesKubernetes DaemonSet purpose and use cases",
+      "query_used": "What is a DaemonSet used for?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q037",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9983590245246887,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes StatefulSet pod naming convention how are pods named?",
+      "query_used": "How are StatefulSet pods named?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q038",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "parallel_work_queue.txt"
+      ],
+      "top_score": 0.9539097547531128,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes Job spec fields controlling pod executions and parallelism\u0000",
+      "query_used": "Which Job fields control the number of pod executions and parallelism?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q039",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9602908492088318,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes jobs automatic cleanup of completed Pods after job finishes documentation.",
+      "query_used": "Are Jobs and their Pods cleaned up automatically after completion?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q040",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9631813168525696,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes Secrets vs ConfigMaps differences guide\u0000",
+      "query_used": "How do Secrets differ from ConfigMaps?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q041",
+      "gold": [
+        "architecture.pptx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9976477026939392,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes pause container purpose for a Pod",
+      "query_used": "What does the pause container do for a Pod?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q042",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "cronjobs.docx",
+        "A Comparison of Software and Hardware Techniques for x86 Virtualization - Oct 2015 (asplos235_adams).pdf",
+        "5-Level Paging and 5-Level EPT - Intel - Revision 1.0 (December, 2016).pdf",
+        "A Tool for the Symbolic Execution of Linux Binaries - PySymemu (Slides).pdf"
+      ],
+      "top_score": 0.6267743706703186,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes prerequisites for testing Horizontal Pod Autoscaler (HPA) and Vertical Pod Autoscaler (VPA) installation requirements.",
+      "query_used": "What must be installed before testing HPA and VPA?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q043",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9133428931236267,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes Horizontal Pod Autoscaler functionality and description.",
+      "query_used": "What does the Horizontal Pod Autoscaler do?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q044",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "A Parallel Page Cache- IOPS and Caching for Multicore Systems.pdf",
+        "A Tool for the Symbolic Execution of Linux Binaries - PySymemu (Slides).pdf",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.001019128947518766,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes example Horizontal Pod Autoscaler replica range CPU target settings",
+      "query_used": "What replica range and CPU target does the example HPA use?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q045",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "cronjobs.docx",
+        "A Tool for the Symbolic Execution of Linux Binaries - PySymemu (Slides).pdf",
+        "A Trip Through The Graphics Pipeline - All (2011).docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.002682521240785718,
+      "answer": null,
+      "failed": false,
+      "search_term": "kubectl command to generate load for testing Horizontal Pod Autoscaler (HPA) in Kuberneteskubectl command to generate load for testing Horizontal Pod Autoscaler (HPA) in Kubernetes",
+      "query_used": "Which command generates load to test the HPA?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q046",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "pods_autoscale.html",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9968691468238831,
+      "answer": null,
+      "failed": false,
+      "search_term": "What does the Vertical Pod Autoscaler adjust in Kubernetes?",
+      "query_used": "What does the Vertical Pod Autoscaler adjust?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q047",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "pods_autoscale.html",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9960797429084778,
+      "answer": null,
+      "failed": false,
+      "search_term": "install script for Vertical Pod Autoscaler Kubernetes\u0000",
+      "query_used": "Which script installs the Vertical Pod Autoscaler?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q048",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "100G Networking Technology Overview - Slides - Toronto (August 2016).pdf",
+        "A Comparison of Software and Hardware Techniques for x86 Virtualization - Oct 2015 (asplos235_adams).pdf",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.004623016342520714,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes VPA updateMode options vertical pod autoscaler documentationKubernetes VPA updateMode options vertical pod autoscaler documentation",
+      "query_used": "Which updateMode options does VPA support?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q049",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "A Comparison of Software and Hardware Techniques for x86 Virtualization - Oct 2015 (asplos235_adams).pdf",
+        "A Trip Through The Graphics Pipeline - All (2011).docx",
+        "cronjobs.docx",
+        "A Trip Through The Graphics Pipeline - All (2011).docx"
+      ],
+      "top_score": 0.01238457765430212,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes VPA updateMode Off functionality and behavior",
+      "query_used": "What does VPA updateMode Off do?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q050",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "pods_autoscale.html",
+        "cronjobs.docx",
+        "A Tool for the Symbolic Execution of Linux Binaries - PySymemu (Slides).pdf",
+        "cronjobs.docx",
+        "A History of Modern 64-bit Computing - Feb 2007 (CSEP590A).pdf"
+      ],
+      "top_score": 0.007877295836806297,
+      "answer": null,
+      "failed": false,
+      "search_term": "Vertical Pod Autoscaler example minAllowed maxAllowed CPU settingsVertical Pod Autoscaler example minAllowed maxAllowed CPU settings",
+      "query_used": "What minAllowed and maxAllowed CPU does the example VPA set?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q051",
+      "gold": [
+        "pods_autoscale.html"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "pods_autoscale.html",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.04112538695335388,
+      "answer": null,
+      "failed": false,
+      "search_term": "Vertical Pod Autoscaler installation repository cloned to install VPA documentation query",
+      "query_used": "Which repository is cloned to install VPA?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q052",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.9982859492301941,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes Jobs restartPolicy not allowed which and whyKubernetes Jobs restartPolicy not allowed which and why",
+      "query_used": "Which restart policy is not allowed for Jobs and why?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q053",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9983721375465393,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes Job pod template modification after job creation\u0000",
+      "query_used": "Can a Job's Pod template be changed after the Job is created?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q054",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.025052184239029884,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes Job completions field meaning \"completions: 5\" explanationKubernetes Job completions field meaning \"completions: 5\" explanation",
+      "query_used": "What does completions: 5 mean for a Job?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q055",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.028308549895882607,
+      "answer": null,
+      "failed": false,
+      "search_term": "Indexed completion mode give each Pod Kubernetes documentation",
+      "query_used": "What does Indexed completion mode give each Pod?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q056",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.7561721205711365,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes CronJob documentation and usage guide.",
+      "query_used": "What is a CronJob?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q057",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9900854825973511,
+      "answer": null,
+      "failed": false,
+      "search_term": "cron expression for daily job at 2:30 AMcron expression for daily job at 2:30 AM",
+      "query_used": "Which cron expression runs a job daily at 2:30 AM?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q058",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.6761486530303955,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes CronJob spec timeZone field setting time zoneKubernetes CronJob spec timeZone field setting time zone",
+      "query_used": "Which CronJob field sets the time zone?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q059",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.7754970192909241,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes CronJob \"database backup\" concurrencyPolicy settings\u0000",
+      "query_used": "Which concurrencyPolicy does the database backup CronJob use?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q060",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.15887580811977386,
+      "answer": null,
+      "failed": false,
+      "search_term": "cron schedule \"60 * * * *\" invalid why",
+      "query_used": "Why is the cron schedule '60 * * * *' invalid?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q061",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.011298269964754581,
+      "answer": null,
+      "failed": false,
+      "search_term": "Prometheus alert for Kubernetes CronJob not executed in over an hour site:kubernetes.io OR site:github.com \"CronJob\" \"alert\" \"not run\" \"hour\"Prometheus alert for Kubernetes CronJob not executed in over an hour site:kubernetes.io OR site:github.com \"CronJob\" \"alert\" \"not run\" \"hour\"",
+      "query_used": "Which Prometheus alert fires when a CronJob has not run in over an hour?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q062",
+      "gold": [
+        "cronjobs.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.03746679425239563,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes securityContext setting to prevent a job container from gaining extra privilegesKubernetes securityContext setting to prevent a job container from gaining extra privileges",
+      "query_used": "Which security context setting stops a job container gaining extra privileges?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q063",
+      "gold": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9992585778236389,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes Job definition and how it works in Kubernetes clusters.",
+      "query_used": "What is a Kubernetes Job?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q064",
+      "gold": [
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.27130553126335144,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes Job field that limits retry attempts for failing jobs (e.g., backoffLimit) documentation query.",
+      "query_used": "Which field limits how many times a failing Job is retried?",
+      "intent": "technical"
+    },
+    {
+      "id": "Q065",
+      "gold": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "parallel_work_queue.txt"
+      ],
+      "ranked_sources": [
+        "parallel_work_queue.txt",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "parallel_work_queue.txt",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9799039363861084,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes Job run pods in parallel configuration guide",
+      "query_used": "How can a Job run its pods in parallel?",
+      "intent": "technical"
+    },
+    {
+      "id": "U01",
+      "gold": [],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.000618739693891257,
+      "answer": null,
+      "failed": false,
+      "search_term": "Istio configure mutual TLS between two services tutorial guide",
+      "query_used": "How do I configure Istio mutual TLS between two services?",
+      "intent": "technical"
+    },
+    {
+      "id": "U02",
+      "gold": [],
+      "ranked_sources": [
+        "architecture.pptx",
+        "monitor_job.docx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.9187242984771729,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes upgrade cluster from version 1.8 to 1.9 using kubeadm steps guideKubernetes upgrade cluster from version 1.8 to 1.9 using kubeadm steps guide",
+      "query_used": "How do I upgrade a cluster from Kubernetes 1.8 to 1.9 with kubeadm?",
+      "intent": "technical"
+    },
+    {
+      "id": "U03",
+      "gold": [],
+      "ranked_sources": [
+        "job_management.html",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.009933603927493095,
+      "answer": null,
+      "failed": false,
+      "search_term": "Databricks jobs compute pricing tiersDatabricks jobs compute pricing tiers",
+      "query_used": "What are the pricing tiers for Databricks jobs compute?",
+      "intent": "technical"
+    },
+    {
+      "id": "U04",
+      "gold": [],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "cronjobs.docx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.000423544057412073,
+      "answer": null,
+      "failed": false,
+      "search_term": "etcdctl snapshot save command usage for backing up etcd cluster\u0000",
+      "query_used": "How do I back up etcd with etcdctl snapshot save?",
+      "intent": "technical"
+    },
+    {
+      "id": "U05",
+      "gold": [],
+      "ranked_sources": [
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.5584457516670227,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes how to configure a PodDisruptionBudget for a Deployment?",
+      "query_used": "How do I configure a PodDisruptionBudget for a Deployment?",
+      "intent": "technical"
+    },
+    {
+      "id": "U06",
+      "gold": [],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "monitor_job.docx",
+        "monitor_job.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.8632570505142212,
+      "answer": null,
+      "failed": false,
+      "search_term": "How to write a Kubernetes operator in Go tutorial guide\u0000",
+      "query_used": "How do I write a Kubernetes operator in Go?",
+      "intent": "technical"
+    },
+    {
+      "id": "U07",
+      "gold": [],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "architecture.pptx",
+        "monitor_job.docx",
+        "monitor_job.docx"
+      ],
+      "top_score": 0.0009215692989528179,
+      "answer": null,
+      "failed": false,
+      "search_term": "cert-manager setup TLS certificates for Ingress in Kubernetes documentation guide",
+      "query_used": "How do I set up cert-manager to issue TLS certificates for an Ingress?",
+      "intent": "technical"
+    },
+    {
+      "id": "U08",
+      "gold": [],
+      "ranked_sources": [
+        "cronjobs.docx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.014378666877746582,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes enable Pod Security Admission restricted mode documentation",
+      "query_used": "How do I enable Pod Security Admission in restricted mode?",
+      "intent": "technical"
+    },
+    {
+      "id": "U09",
+      "gold": [],
+      "ranked_sources": [
+        "monitor_job.docx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "monitor_job.docx",
+        "architecture.pptx"
+      ],
+      "top_score": 0.9844294786453247,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes version that removed Docker as a container runtime site:kubernetes.io documentation removal Docker runtime version historyKubernetes version that removed Docker as a container runtime site:kubernetes.io documentation removal Docker runtime version history",
+      "query_used": "Which Kubernetes version removed Docker as a container runtime?",
+      "intent": "technical"
+    },
+    {
+      "id": "U10",
+      "gold": [],
+      "ranked_sources": [
+        "architecture.pptx",
+        "architecture.pptx",
+        "cronjobs.docx",
+        "architecture.pptx",
+        "cronjobs.docx"
+      ],
+      "top_score": 0.004726576618850231,
+      "answer": null,
+      "failed": false,
+      "search_term": "Kubernetes NetworkPolicy block all ingress traffic by default configuration guideKubernetes NetworkPolicy block all ingress traffic by default configuration guide",
+      "query_used": "How do I configure a NetworkPolicy to block all ingress traffic by default?",
+      "intent": "technical"
+    }
+  ]
+}

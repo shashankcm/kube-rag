@@ -187,6 +187,99 @@ def test_resume_keeps_good_results_and_reruns_only_failed_ones(monkeypatch):
     assert report["complete"] is True
 
 
+def _stub_agent(monkeypatch, planner_output, searched):
+    """Replace the planner with a stub and Qdrant/FlashRank with stubs; record what was searched."""
+    import sys
+
+    from app.agents.nodes import retriever
+
+    def planner(state):
+        if isinstance(planner_output, Exception):
+            raise planner_output
+        return planner_output
+
+    monkeypatch.setitem(sys.modules, "app.agents.nodes.planner", SimpleNamespace(planner_node=planner))
+
+    def search(query, limit):
+        searched.append(query)
+        return [{"content": "text", "source": "cronjobs.docx", "chunk_id": "c1", "score": 0.5}]
+
+    monkeypatch.setattr(retriever, "search_enterprise_knowledge", search)
+    monkeypatch.setattr(retriever, "rerank_hits", lambda q, hits, top_n: [{**h, "rerank_score": 0.9} for h in hits][:top_n])
+
+
+def test_agent_mode_searches_with_the_original_question_on_a_first_turn(monkeypatch):
+    from app.config import settings
+
+    searched = []
+    _stub_agent(monkeypatch, {"current_query": "Kubernetes Job completions documentation", "plan": ["Intent: Technical"]}, searched)
+    monkeypatch.setattr(settings, "QUERY_REWRITE", "followups")
+
+    outcome = runner.run_agent("What does completions: 5 mean for a Job?")
+
+    assert searched == ["What does completions: 5 mean for a Job?"]
+    assert outcome["query_used"] == "What does completions: 5 mean for a Job?"
+    assert outcome["search_term"] == "Kubernetes Job completions documentation"
+    assert outcome["ranked_sources"] == ["cronjobs.docx"]
+    assert outcome["intent"] == "technical" and outcome["failed"] is False
+
+
+def test_agent_mode_always_rewrite_reproduces_the_old_behaviour(monkeypatch):
+    from app.config import settings
+
+    searched = []
+    _stub_agent(monkeypatch, {"current_query": "Kubernetes Job completions documentation", "plan": ["Intent: Technical"]}, searched)
+    monkeypatch.setattr(settings, "QUERY_REWRITE", "always")
+
+    runner.run_agent("What does completions: 5 mean for a Job?")
+
+    assert searched == ["Kubernetes Job completions documentation"]
+
+
+def test_agent_mode_skips_retrieval_when_the_planner_says_conversational(monkeypatch):
+    searched = []
+    _stub_agent(monkeypatch, {"current_query": "CONVERSATIONAL", "plan": ["Intent: Conversational/Memory"]}, searched)
+
+    outcome = runner.run_agent("hello")
+
+    assert searched == []
+    assert outcome["intent"] == "conversational"
+    assert outcome["ranked_sources"] == []
+    assert outcome["failed"] is False
+
+
+def test_agent_mode_marks_a_planner_error_as_failed(monkeypatch):
+    searched = []
+    _stub_agent(monkeypatch, RuntimeError("429 rate limit"), searched)
+
+    outcome = runner.run_agent("anything")
+
+    assert outcome["failed"] is True
+    assert "429" in outcome["error"]
+    assert searched == []
+
+
+def test_run_in_agent_mode_applies_the_rewrite_setting_and_uses_run_agent(monkeypatch):
+    from app.config import settings
+
+    monkeypatch.setattr(settings, "QUERY_REWRITE", "followups")
+    seen = []
+
+    def fake_agent(question):
+        seen.append(settings.QUERY_REWRITE)
+        return _good()
+
+    monkeypatch.setattr(runner, "run_agent", fake_agent)
+    args = SimpleNamespace(mode="agent", k=5, no_rerank=False, label="t", url="", rewrite="always")
+
+    report = runner.run(args)
+
+    assert set(seen) == {"always"}
+    assert report["config"]["rewrite"] == "always"
+    assert report["config"]["mode"] == "agent"
+    assert report["complete"] is True
+
+
 def test_report_is_saved_after_every_question(monkeypatch, tmp_path):
     out = tmp_path / "run.json"
     calls = []

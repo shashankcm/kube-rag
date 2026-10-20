@@ -43,6 +43,50 @@ def test_rerank_hits_empty_input():
     assert ranking_service.rerank_hits("q", [], top_n=5) == []
 
 
+def _state(messages, rewritten="Kubernetes Job completions field meaning documentation"):
+    return {"current_query": rewritten, "messages": messages, "plan": ["Start"]}
+
+
+def test_first_question_searches_with_the_users_own_words():
+    state = _state([{"role": "user", "content": "What does completions: 5 mean for a Job?"}])
+    assert retriever.choose_search_query(state, "followups") == "What does completions: 5 mean for a Job?"
+
+
+def test_follow_up_uses_the_planners_rewrite():
+    history = [
+        {"role": "user", "content": "What is a CronJob?"},
+        {"role": "assistant", "content": "A wrapper around Jobs."},
+        {"role": "user", "content": "How do I set its timezone?"},
+    ]
+    state = _state(history, rewritten="CronJob timeZone field")
+    assert retriever.choose_search_query(state, "followups") == "CronJob timeZone field"
+
+
+def test_always_mode_keeps_the_old_rewrite_behaviour():
+    state = _state([{"role": "user", "content": "original question"}], rewritten="rewritten query")
+    assert retriever.choose_search_query(state, "always") == "rewritten query"
+
+
+def test_missing_messages_falls_back_to_the_rewrite():
+    assert retriever.choose_search_query({"current_query": "only this"}, "followups") == "only this"
+
+
+def test_retrieve_node_searches_with_the_chosen_query(monkeypatch):
+    seen = {}
+
+    def fake_search(query, limit):
+        seen["query"] = query
+        return [_hit(0)]
+
+    monkeypatch.setattr(retriever, "search_enterprise_knowledge", fake_search)
+    monkeypatch.setattr(retriever, "rerank_hits", lambda q, hits, top_n: hits[:top_n])
+    monkeypatch.setattr(retriever.settings, "QUERY_REWRITE", "followups")
+
+    retriever.retrieve_node(_state([{"role": "user", "content": "the user's words"}]))
+
+    assert seen["query"] == "the user's words"
+
+
 def test_retrieve_node_returns_citations(monkeypatch):
     monkeypatch.setattr(retriever, "search_enterprise_knowledge", lambda q, limit: [_hit(0), _hit(1)])
     monkeypatch.setattr(retriever, "rerank_hits", lambda q, hits, top_n: hits[:top_n])

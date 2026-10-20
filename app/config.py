@@ -28,6 +28,12 @@ class Settings:
     # Optional saved Portkey config ("pc-...") — enables fallback/cache/retry when inline configs are disabled
     PORTKEY_CONFIG_ID = os.getenv("PORTKEY_CONFIG_ID")
 
+    # --- RETRIEVAL ---
+    # "followups": search with the user's own words on a first question and use the planner's
+    # rewrite only when there is earlier conversation (where it resolves "what about its limits?").
+    # "always": always search with the planner's rewrite (the original behaviour).
+    QUERY_REWRITE = os.getenv("QUERY_REWRITE", "followups")
+
     # --- OBSERVABILITY ---
     LANGSMITH_TRACING = os.getenv("LANGSMITH_TRACING", "true")
     LANGSMITH_API_KEY = os.getenv("LANGSMITH_API_KEY")

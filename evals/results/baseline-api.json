@@ -15,31 +15,31 @@
     "n_unanswerable": 10,
     "n_failed": 0,
     "hit": {
-      "mean": 0.9384615384615385,
+      "mean": 0.9692307692307692,
       "ci95": [
-        0.8769230769230769,
-        0.9846153846153847
+        0.9230769230769231,
+        1.0
       ]
     },
     "recall": {
-      "mean": 0.9333333333333333,
+      "mean": 0.9487179487179487,
       "ci95": [
-        0.8717948717948718,
-        0.9846153846153847
+        0.8974358974358975,
+        0.9923076923076923
       ]
     },
     "precision": {
-      "mean": 0.5107692307692308,
+      "mean": 0.5230769230769231,
       "ci95": [
-        0.4307692307692308,
-        0.5876923076923077
+        0.4492307692307692,
+        0.5969230769230769
       ]
     },
     "mrr": {
-      "mean": 0.8384615384615385,
+      "mean": 0.8692307692307693,
       "ci95": [
-        0.7692307692307693,
-        0.9076923076923077
+        0.8076923076923077,
+        0.9230769230769231
       ]
     },
     "refusal_rate_on_unanswerable": {
@@ -689,7 +689,8 @@
     {
       "id": "Q038",
       "gold": [
-        "architecture.pptx"
+        "architecture.pptx",
+        "cronjobs.docx"
       ],
       "ranked_sources": [
         "cronjobs.docx",
@@ -706,7 +707,8 @@
     {
       "id": "Q039",
       "gold": [
-        "architecture.pptx"
+        "architecture.pptx",
+        "cronjobs.docx"
       ],
       "ranked_sources": [
         "cronjobs.docx",
@@ -1317,5 +1319,6 @@
       "failed": false,
       "search_term": "Kubernetes NetworkPolicy block all ingress traffic by default configuration guideKubernetes NetworkPolicy block all ingress traffic by default configuration guide"
     }
-  ]
+  ],
+  "rescored": true
 }

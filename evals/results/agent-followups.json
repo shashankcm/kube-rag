@@ -18,31 +18,31 @@
     "n_unanswerable": 10,
     "n_failed": 0,
     "hit": {
-      "mean": 0.9846153846153847,
+      "mean": 1.0,
       "ci95": [
-        0.9538461538461539,
+        1.0,
         1.0
       ]
     },
     "recall": {
-      "mean": 0.9794871794871794,
+      "mean": 0.9871794871794872,
       "ci95": [
-        0.9435897435897436,
+        0.9666666666666667,
         1.0
       ]
     },
     "precision": {
-      "mean": 0.5538461538461539,
+      "mean": 0.5630769230769231,
       "ci95": [
-        0.47692307692307695,
-        0.6276923076923077
+        0.48923076923076925,
+        0.6338461538461538
       ]
     },
     "mrr": {
-      "mean": 0.9358974358974359,
+      "mean": 0.9512820512820512,
       "ci95": [
-        0.8846153846153846,
-        0.9769230769230769
+        0.9102564102564102,
+        0.9846153846153847
       ]
     },
     "suggested_score_threshold": {
@@ -758,7 +758,8 @@
     {
       "id": "Q038",
       "gold": [
-        "architecture.pptx"
+        "architecture.pptx",
+        "cronjobs.docx"
       ],
       "ranked_sources": [
         "architecture.pptx",
@@ -777,7 +778,8 @@
     {
       "id": "Q039",
       "gold": [
-        "architecture.pptx"
+        "architecture.pptx",
+        "cronjobs.docx"
       ],
       "ranked_sources": [
         "cronjobs.docx",
@@ -1462,5 +1464,6 @@
       "query_used": "How do I configure a NetworkPolicy to block all ingress traffic by default?",
       "intent": "technical"
     }
-  ]
+  ],
+  "rescored": true
 }

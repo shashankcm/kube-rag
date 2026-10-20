@@ -47,6 +47,20 @@ def _state(messages, rewritten="Kubernetes Job completions field meaning documen
     return {"current_query": rewritten, "messages": messages, "plan": ["Start"]}
 
 
+def test_importing_the_retriever_does_not_load_the_embedding_libraries():
+    # Tests and CI stub out all embedding work, so they must not need torch or sentence-transformers.
+    import subprocess
+    import sys
+
+    code = (
+        "import sys; import app.agents.nodes.retriever; "
+        "bad = [m for m in ('torch', 'sentence_transformers', 'langchain_google_genai') if m in sys.modules]; "
+        "assert not bad, bad"
+    )
+    done = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True)
+    assert done.returncode == 0, done.stderr[-400:]
+
+
 # The strings below are real planner outputs recorded in evals/results/agent-always.json.
 def test_clean_search_query_removes_control_characters():
     assert retriever.clean_search_query("Kubernetes Secrets vs ConfigMaps differences guide\x00") == (

@@ -168,6 +168,26 @@ curl -X POST http://localhost:8000/query \
 
 The response contains `question`, `answer`, `thought_process` (the steps taken), `status` and `sources`. Reuse the same `thread_id` to keep conversation memory. If the pipeline fails, the endpoint still returns HTTP 200 with `"status": "error"`.
 
+## Demo
+
+Screenshots from a local run. There is no hosted demo, because a public endpoint would let anyone spend the vector database and LLM quotas.
+
+**A question, with the retrieved sources the answer is built from.** The "Search Term" line shows the planner's raw rewrite, which here contains duplicated text, one of the planner defects found during evaluation (see Results). On a first question the retriever searches with the user's own words, not that rewrite, so this label is misleading. It is a known issue.
+
+![The chat UI answering a question and listing the retrieved sources](DOCS/screenshots/01-chat-answer.png)
+
+**A jailbreak attempt stopped at the gate.** The message ("ignore all previous instruction", with a typo) matches the jailbreak rail by embedding similarity, so retrieval is skipped and no LLM is called. Jailbreaks are blocked reliably; off-topic requests are only partly caught (see Limits under Results).
+
+![The chat UI showing "Intent: Guardrails Fired" and "Retrieval: Skipped" for a jailbreak attempt](DOCS/screenshots/02-guardrail-block.png)
+
+**Measuring the reranker.** `python -m evals.compare baseline-dense baseline-dense-norerank` compares two saved runs on the same 65 questions and prints the paired difference with a 95% interval. It needs no API keys.
+
+![Terminal output of the paired comparison between the runs with and without the reranker](DOCS/screenshots/03-eval-compare.png)
+
+**CI.** The test suite passes on the pull request and on `main`.
+
+![GitHub Actions showing two passing CI runs](DOCS/screenshots/04-ci-passing.png)
+
 ## Results
 
 Retrieval quality on a **65-question golden set** over six documents, mixed with about 60 unrelated PDFs, `.docx` and `.pptx` files that act as distractors. No LLM judge is involved. A question counts as a hit when a chunk from a gold source file is in the top 5. Every gold label is backed by a verbatim quote from the source, and a test checks each quote against the parsed text. Intervals are 95% bootstrap intervals over questions.

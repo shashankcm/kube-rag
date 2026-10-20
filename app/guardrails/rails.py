@@ -9,6 +9,21 @@ from app.guardrails.colang_rules import COLANG_CONTENT, YAML_CONTENT, RAIL_INDIC
 _rails: LLMRails | None = None
 
 
+def build_rails(llm) -> LLMRails:
+    """
+    Build the rails from the Colang rules and the YAML config.
+
+    User intents are matched by embedding similarity (see YAML_CONTENT), so the gate makes no
+    LLM call. `llm` is only used if NeMo ever needs to generate text; tests pass a fake that
+    counts its calls to prove it never does.
+    """
+    config = RailsConfig.from_content(
+        colang_content=COLANG_CONTENT,
+        yaml_content=YAML_CONTENT,
+    )
+    return LLMRails(config, llm=llm)
+
+
 def initialize_rails() -> None:
     """
     Build the NeMo LLMRails singleton at app startup.
@@ -23,13 +38,8 @@ def initialize_rails() -> None:
         temperature=0
     )
 
-    config = RailsConfig.from_content(
-        colang_content=COLANG_CONTENT,
-        yaml_content=YAML_CONTENT
-    )
-
-    _rails = LLMRails(config, llm=guard_llm)
-    logfire.info("🛡️ NeMo Guardrails initialised (openai/gpt-oss-20b).")
+    _rails = build_rails(guard_llm)
+    logfire.info("🛡️ NeMo Guardrails initialised (intents matched by embeddings; no LLM call in the gate).")
     
     
 

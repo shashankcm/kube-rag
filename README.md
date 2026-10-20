@@ -9,7 +9,7 @@ Enterprise-grade agentic RAG over [Kubernetes](https://kubernetes.io/) documenta
 ## Features
 
 - **Agentic pipeline (LangGraph):** a planner classifies intent, a retriever fetches and reranks context, and a responder generates the answer. Per-thread conversation memory is kept with `MemorySaver`.
-- **Guardrails (NeMo Guardrails):** off-topic and jailbreak requests are blocked before they reach the pipeline.
+- **Guardrails (NeMo Guardrails):** jailbreak attempts and common off-topic requests are blocked before they reach the pipeline. Intents are matched by embedding similarity, so the gate makes no LLM call. On the test messages it blocks all 25 jailbreaks and none of 97 legitimate questions; off-topic recall is limited (see [Limits](#results)).
 - **LLM gateway (Portkey):** all generation goes through Portkey to Groq models. Fallback, retry and caching are enabled through a saved Portkey config.
 - **Retrieval:** Qdrant vector search followed by a local FlashRank cross-encoder reranker.
 - **Embeddings:** `sentence-transformers` (`all-mpnet-base-v2`, 768-dim) by default, with optional Gemini embeddings (`gemini-embedding-2-preview`, 3072-dim).
@@ -94,7 +94,7 @@ Groq no longer lists `llama-3.1-8b-instant` or `llama-3.3-70b-versatile` for thi
 
 - Primary: `@kube-rage-groq/openai/gpt-oss-120b`
 - Fallback (via saved config): `@kube-rage-groq/openai/gpt-oss-20b`
-- Guardrails: `openai/gpt-oss-20b`
+- Guardrails: no LLM in the gate (embedding matching). `openai/gpt-oss-20b` is only a fallback if NeMo ever needs to generate text; a test asserts it is never called.
 
 Check which models your key can use with `GET https://api.groq.com/openai/v1/models`.
 
@@ -193,6 +193,7 @@ Retrieval quality on a **65-question golden set** over six documents, mixed with
 - Two labels (Q038, Q039) were corrected after results existed, because the retriever returned a document that also contains the answer. Each added source was checked against the text, the change is recorded in the `changelog` of `evals/golden_v2.json`, and every saved run was rescored with `evals.rescore`. A search of the rest of the corpus found no further missing sources.
 - Single-turn questions only. Whether keeping the planner's rewrite for follow-ups helps is not measured.
 - Refusal is measured on 10 questions, so the interval is wide.
+- **Guardrail coverage is uneven, and the earlier results above predate a guardrail fix.** The gate used to ask `gpt-oss-20b` to classify each message. That model answered the question instead of naming an intent, so no rail fired (a joke request got a joke) and each check cost three LLM calls. It now matches intents by embedding similarity at a threshold of 0.45, chosen from a sweep. On messages written for the purpose: all 25 jailbreak variants are blocked, 0 of 97 legitimate questions are, and the gate makes 0 LLM calls. **Off-topic recall is weak:** on 14 held-out messages it blocked 4 (7 of 13 on the tuning set), because the small embedding model scores general topics like cooking or art history at 0.15 to 0.35 against the examples, and lowering the threshold starts blocking real questions (0.40 blocked 3 of 78). Such requests are not stopped at the gate; they reach the pipeline. If the planner treats them as technical, the answer is restricted to retrieved context. If it treats them as conversational, the responder has no topic restriction and may simply answer (a request for a joke was answered). The guardrail tests are skipped in CI, which does not install NeMo.
 - Answer quality (RAGAS faithfulness and relevancy) exists in the dashboard but has not been run on this golden set.
 - The first full API run failed on 28 of 75 questions when Groq's daily token limit on the guardrail model was reached. The runner now records failures separately, retries, stops after repeated failures, and resumes; the reported API run is the completed one.
 

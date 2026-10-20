@@ -95,6 +95,20 @@ define bot express farewell
 define flow farewell
   user express farewell
   bot express farewell
+
+# Fallback for everything that is not close to any example above (that is, nearly every real
+# question). With embeddings-only matching a message below the similarity threshold gets this
+# intent. The reply "ALLOW" is deliberately not in RAIL_INDICATORS, so guard() lets the message
+# through to the pipeline, and no LLM call is made.
+define user technical question
+  "how do I configure kubernetes networking"
+
+define bot allow request
+  "ALLOW"
+
+define flow allow technical question
+  user technical question
+  bot allow request
 """
 
 YAML_CONTENT = """
@@ -111,6 +125,19 @@ instructions:
       - Intel hardware (CPUs, FPGAs, NICs, SRIOV)
       - Enterprise networking (SDN, VLANs, BGP, routing)
       Only answer questions about these topics. Be professional and concise.
+
+# Match user intents by embedding similarity alone. Asking the guard LLM to classify each message
+# failed with a reasoning model (it answered the question instead of naming an intent, so no rail
+# fired) and cost three LLM calls per request.
+# 0.45 was chosen from a sweep: it blocked 0 of 78 legitimate questions and caught every jailbreak
+# paraphrase. Raising it catches fewer jailbreaks; lowering it starts blocking real questions
+# (0.40 blocks 3 of 78). Off-topic recall is limited (see tests/test_guardrails.py).
+rails:
+  dialog:
+    user_messages:
+      embeddings_only: True
+      embeddings_only_similarity_threshold: 0.45
+      embeddings_only_fallback_intent: technical question
 """
 
 # Distinctive substrings from each 'define bot' block above.

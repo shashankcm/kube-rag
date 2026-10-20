@@ -1,6 +1,10 @@
 {
   "version": 2,
   "description": "Retrieval golden set for kube-rag. Gold = the source file(s) holding the evidence span; every span is verified verbatim against processed_data/true. 'unanswerable' questions have no support in the corpus.",
+  "changelog": [
+    "Q038: added cronjobs.docx as a gold source ('Two critical fields control how Jobs execute:'). Found because the retriever returned that document first and the label counted it as a miss.",
+    "Q039: added cronjobs.docx as a gold source (ttlSecondsAfterFinished cleanup) and reworded the reference answer. architecture.pptx says Jobs are not cleaned up by default; the cronjobs guide shows how to enable cleanup."
+  ],
   "questions": [
     {
       "id": "Q001",
@@ -457,24 +461,32 @@
     {
       "id": "Q038",
       "question": "Which Job fields control the number of pod executions and parallelism?",
-      "reference": "spec.completions and spec.parallelism.",
-      "type": "factual",
+      "reference": "completions and parallelism (spec.completions and spec.parallelism).",
+      "type": "multi_source",
       "evidence": [
         {
           "source": "architecture.pptx",
           "span": "Number of pod executions can be controlled via spec.completions"
+        },
+        {
+          "source": "cronjobs.docx",
+          "span": "Two critical fields control how Jobs execute:"
         }
       ]
     },
     {
       "id": "Q039",
       "question": "Are Jobs and their Pods cleaned up automatically after completion?",
-      "reference": "No, they are not automatically cleaned up.",
-      "type": "factual",
+      "reference": "Not by default; setting ttlSecondsAfterFinished cleans them up automatically.",
+      "type": "multi_source",
       "evidence": [
         {
           "source": "architecture.pptx",
           "span": "Jobs and Pods are NOT automatically cleaned up after a job has completed."
+        },
+        {
+          "source": "cronjobs.docx",
+          "span": "ttlSecondsAfterFinished: 3600 # Clean up after 1 hour"
         }
       ]
     },

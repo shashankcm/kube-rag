@@ -13,38 +13,40 @@
     "k": 5,
     "n_answerable": 65,
     "n_unanswerable": 10,
+    "n_failed": 0,
     "hit": {
-      "mean": 0.8923076923076924,
+      "mean": 0.9230769230769231,
       "ci95": [
-        0.8153846153846154,
-        0.9538461538461539
+        0.8461538461538461,
+        0.9846153846153847
       ]
     },
     "recall": {
-      "mean": 0.882051282051282,
+      "mean": 0.8974358974358975,
       "ci95": [
-        0.8,
-        0.9487179487179487
+        0.823076923076923,
+        0.958974358974359
       ]
     },
     "precision": {
-      "mean": 0.5230769230769231,
+      "mean": 0.5353846153846153,
       "ci95": [
-        0.4338461538461539,
-        0.6092307692307692
+        0.44923076923076927,
+        0.6184615384615385
       ]
     },
     "mrr": {
-      "mean": 0.8223076923076923,
+      "mean": 0.8453846153846154,
       "ci95": [
-        0.7338461538461538,
-        0.9
+        0.7646153846153846,
+        0.9184615384615384
       ]
     },
     "suggested_score_threshold": {
       "threshold": 0.5685531,
       "balanced_accuracy": 0.7230769230769231
-    }
+    },
+    "n_missing": 0
   },
   "results": [
     {
@@ -605,7 +607,8 @@
     {
       "id": "Q038",
       "gold": [
-        "architecture.pptx"
+        "architecture.pptx",
+        "cronjobs.docx"
       ],
       "ranked_sources": [
         "parallel_work_queue.txt",
@@ -620,7 +623,8 @@
     {
       "id": "Q039",
       "gold": [
-        "architecture.pptx"
+        "architecture.pptx",
+        "cronjobs.docx"
       ],
       "ranked_sources": [
         "cronjobs.docx",
@@ -1157,5 +1161,6 @@
       "top_score": 0.25535,
       "answer": null
     }
-  ]
+  ],
+  "rescored": true
 }

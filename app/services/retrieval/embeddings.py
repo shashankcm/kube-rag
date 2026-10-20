@@ -1,10 +1,16 @@
 import time
+from typing import TYPE_CHECKING
 
 import logfire
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
-from sentence_transformers import SentenceTransformer
 
 from app.config import settings
+
+# The two embedding libraries are imported inside the functions that use them, so importing this
+# module (and everything that imports it, such as the retriever) stays light. torch is slow to
+# load and large to install, and tests and CI stub the embedding calls anyway.
+if TYPE_CHECKING:
+    from langchain_google_genai import GoogleGenerativeAIEmbeddings
+    from sentence_transformers import SentenceTransformer
 
 _BATCH_SIZE = 50
 _GEMINI_DIM = 3072
@@ -15,9 +21,11 @@ _active_model = None
 _model_type: str | None = None
 
 
-def _probe_gemini() -> GoogleGenerativeAIEmbeddings | None:
+def _probe_gemini() -> "GoogleGenerativeAIEmbeddings | None":
     """Try one embed call to verify Gemini is reachable. Returns model or None."""
     try:
+        from langchain_google_genai import GoogleGenerativeAIEmbeddings
+
         model = GoogleGenerativeAIEmbeddings(
             model="models/gemini-embedding-2-preview",
             google_api_key=settings.GEMINI_API_KEY,
@@ -32,8 +40,10 @@ def _probe_gemini() -> GoogleGenerativeAIEmbeddings | None:
         return None
 
 
-def _load_fallback() -> SentenceTransformer:
+def _load_fallback() -> "SentenceTransformer":
     """Load the sentence-transformers fallback model."""
+    from sentence_transformers import SentenceTransformer
+
     return SentenceTransformer("all-mpnet-base-v2")
 
 

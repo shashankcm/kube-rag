@@ -8,6 +8,11 @@ Two modes:
              comparing retrieval changes. It also records each question's top
              reranker score, which is used to suggest a relevance threshold.
 
+  agent      Runs the real planner and the real retriever, with no guardrails
+             and no answer generation. Isolates the planner's query rewriting
+             without using the guardrail model's daily token quota.
+             --rewrite always|followups switches the old and new behaviour.
+
   api        Calls the running FastAPI /query endpoint. Slower (rate-limited
              LLM calls) but also scores how often unanswerable questions are
              refused.
@@ -39,6 +44,7 @@ RESULTS_DIR = EVALS_DIR / "results"
 
 CANDIDATES = 15                # same candidate pool the agent uses before reranking
 API_DELAY_SECONDS = 10         # stays within the Groq requests-per-minute limit
+AGENT_DELAY_SECONDS = 2        # the planner makes one short LLM call per question
 API_TIMEOUT_SECONDS = 120
 RETRY_DELAYS = (15, 45)        # seconds to wait before the 1st and 2nd retry
 MAX_CONSECUTIVE_FAILURES = 3   # then stop; a daily quota will not clear in minutes
@@ -70,6 +76,51 @@ def run_retriever(question: str, k: int, rerank: bool) -> dict:
         "answer": None,
         "failed": False,
         "search_term": None,
+    }
+
+
+def run_agent(question: str) -> dict:
+    """
+    The real planner and the real retriever, with no guardrails and no answer generation.
+
+    This isolates the effect of the planner's query rewriting without spending the
+    guardrail model's daily token quota. Which query reaches the retriever depends on
+    settings.QUERY_REWRITE ("always" or "followups").
+    """
+    from app.agents.nodes.planner import planner_node
+    from app.agents.nodes.retriever import choose_search_query, retrieve_node
+    from app.config import settings
+
+    state = {
+        "messages": [{"role": "user", "content": question}],
+        "current_query": question,
+        "documents": [],
+        "citations": [],
+        "plan": ["Start"],
+        "status": "",
+    }
+    try:
+        state.update(planner_node(state))
+    except Exception as exc:  # for example a rate-limited planner call
+        return {"ranked_sources": [], "top_score": None, "answer": None, "failed": True,
+                "search_term": None, "intent": None, "error": str(exc)[:200]}
+
+    if state["current_query"] == "CONVERSATIONAL":  # the planner decided not to retrieve
+        return {"ranked_sources": [], "top_score": None, "answer": None, "failed": False,
+                "search_term": None, "intent": "conversational"}
+
+    query_used = choose_search_query(state, settings.QUERY_REWRITE, settings.CLEAN_REWRITE)
+    state.update(retrieve_node(state))
+    citations = state.get("citations") or []
+    scores = [c["score"] for c in citations if c.get("score") is not None]
+    return {
+        "ranked_sources": [c["source"] for c in citations],
+        "top_score": max(scores) if scores else None,
+        "answer": None,
+        "failed": False,
+        "search_term": state["current_query"],   # the planner's rewrite
+        "query_used": query_used,                # what the retriever actually searched with
+        "intent": "technical",
     }
 
 
@@ -120,7 +171,11 @@ def run_api(question: str, index: int, url: str) -> dict:
 
 def _config(args) -> dict:
     config = {"mode": args.mode, "k": args.k, "candidates": CANDIDATES, "rerank": not args.no_rerank}
-    if args.mode == "retriever":
+    if args.mode == "agent":
+        config["rerank"] = True  # the agent always reranks, and returns its top 5
+        config["rewrite"] = args.rewrite
+        config["clean_rewrite"] = not getattr(args, "no_clean_rewrite", False)
+    if args.mode in ("retriever", "agent"):
         from app.config import settings
 
         config["embedding_model"] = settings.EMBEDDING_MODEL
@@ -151,6 +206,11 @@ def run(args, out_path: Path | None = None, previous: list[dict] | None = None) 
     """
     questions = load_questions()
     config = _config(args)
+    if args.mode == "agent":
+        from app.config import settings
+
+        settings.QUERY_REWRITE = args.rewrite  # read by the retriever node at call time
+        settings.CLEAN_REWRITE = not getattr(args, "no_clean_rewrite", False)
     by_id = {r["id"]: r for r in (previous or []) if not r.get("failed")}
     consecutive_failures = 0
     stopped_early = False
@@ -160,6 +220,9 @@ def run(args, out_path: Path | None = None, previous: list[dict] | None = None) 
             continue
         if args.mode == "retriever":
             outcome = run_retriever(q["question"], args.k, rerank=not args.no_rerank)
+        elif args.mode == "agent":
+            outcome = run_agent(q["question"])
+            time.sleep(AGENT_DELAY_SECONDS)
         else:
             outcome = run_api(q["question"], i, args.url)
             time.sleep(API_DELAY_SECONDS)
@@ -181,8 +244,12 @@ def run(args, out_path: Path | None = None, previous: list[dict] | None = None) 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--label", required=True, help="name for this run, used as the output file name")
-    parser.add_argument("--mode", choices=["retriever", "api"], default="retriever")
+    parser.add_argument("--mode", choices=["retriever", "agent", "api"], default="retriever")
+    parser.add_argument("--rewrite", choices=["always", "followups"], default="followups",
+                        help="agent mode: always search with the planner's rewrite (old) or only on follow-ups (new)")
     parser.add_argument("--k", type=int, default=5, help="rank cut-off for the metrics")
+    parser.add_argument("--no-clean-rewrite", action="store_true",
+                        help="agent mode: do not repair defects in the planner's rewrite (old behaviour)")
     parser.add_argument("--no-rerank", action="store_true", help="retriever mode: skip FlashRank")
     parser.add_argument("--url", default="http://localhost:8000", help="api mode: backend base URL")
     parser.add_argument("--resume", action="store_true", help="reuse non-failed results from an earlier run with this label")

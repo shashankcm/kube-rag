@@ -1,0 +1,13 @@
+# Minimal dependencies to run the test suite in CI.
+# The tests stub Qdrant, the reranker model, the LLM gateway and the planner, so torch and
+# sentence-transformers are deliberately absent: the app imports them lazily
+# (see tests/test_retrieval_metadata.py).
+# Versions are the ones the suite is known to pass with.
+pytest==9.1.1
+python-dotenv==1.2.4
+logfire==5.2.0
+qdrant-client==1.19.1
+flashrank==0.2.10
+portkey-ai==2.3.4
+langchain-openai==1.7.2
+requests==2.34.2
